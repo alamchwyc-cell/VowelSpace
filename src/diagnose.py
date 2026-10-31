@@ -39,6 +39,7 @@ from run_pipeline import VOWELS as VOWEL_MAP  # noqa: E402
 DICT = MODELS / "dict/english_us_arpa.dict"
 ACOUSTIC = MODELS / "acoustic"
 REF = MODELS / "vowel_reference.json"
+DUR_REF = MODELS / "duration_reference.json"
 MFA_ENV = os.environ.get("MFA_ENV", "mfa")
 MIN_TOKENS = 25           # 少于这个数量, 归一化不可靠
 
@@ -99,6 +100,21 @@ def diagnose(wav_path, text: str, ref_path: Path = REF) -> dict:
     med = df.groupby("vowel")[[F1, F2]].median().dropna()
     per_vowel, total = score_speaker(med, ref)
 
+    # ---- 时长: 松紧对立 ----
+    dur_ref = json.loads(DUR_REF.read_text(encoding="utf-8")) if DUR_REF.exists() else None
+    dur_info = None
+    if dur_ref:
+        med_dur = toks.groupby("vowel")["dur"].median()
+        if "iː" in med_dur.index and "ɪ" in med_dur.index:
+            ratio = float(med_dur["iː"] / med_dur["ɪ"])
+            dur_info = {
+                "ratio": ratio,
+                "ref_mean": dur_ref["tense_ratio_mean"],
+                "ref_sd": dur_ref["tense_ratio_sd"],
+                "z": (ratio - dur_ref["tense_ratio_mean"]) /
+                     max(1e-6, dur_ref["tense_ratio_sd"]),
+            }
+
     problems = per_vowel.head(3).to_dict("records")
     for p in problems:
         p["advice"] = ADVICE.get(p["vowel"], "")
@@ -110,6 +126,7 @@ def diagnose(wav_path, text: str, ref_path: Path = REF) -> dict:
         "total_score": total,
         "per_vowel": per_vowel.to_dict("records"),
         "problems": [p for p in problems if p["score"] < 50],
+        "duration": dur_info,
         "vowel_points": {v: med.loc[v, [F1, F2]].tolist()
                          for v in med.index},
     }
@@ -130,6 +147,14 @@ def render(res: dict) -> str:
             L.append(f"       {p['advice']}")
     else:
         L.append("  没有发现明显偏离的元音。")
+    if res.get("duration"):
+        d = res["duration"]
+        flag = "正常" if abs(d["z"]) < 1 else ("偏短" if d["z"] < 0 else "偏长")
+        L.append("")
+        L.append(f"  松紧时长：/iː/ : /ɪ/ = {d['ratio']:.2f}"
+                 f"（母语者 {d['ref_mean']:.2f}±{d['ref_sd']:.2f}，{flag}）")
+        if d["z"] < -1:
+            L.append("    → 长元音拉得不够长。试着把 /iː/ 的时长放慢到 /ɪ/ 的 1.5 倍。")
     L.append("")
     L.append("  各元音得分：")
     for p in res["per_vowel"]:

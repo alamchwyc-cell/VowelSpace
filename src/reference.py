@@ -107,3 +107,22 @@ def score_speaker(med: pd.DataFrame, ref: dict):
 
 if __name__ == "__main__":
     build()
+
+
+def build_duration_reference(path=None):
+    """母语者各元音的时长中位数, 以及 /iː/:/ɪ/ 的时长比分布."""
+    p = path or (DATA / "durations.csv")
+    df = pd.read_csv(p)
+    nat = df[df["group"] == "Native"]
+    piv = nat.groupby(["speaker", "vowel"])["dur"].median().unstack()
+    ref = {
+        "vowel_median": piv.median().to_dict(),
+        "tense_ratio_mean": float((piv["iː"] / piv["ɪ"]).mean()),
+        "tense_ratio_sd": float((piv["iː"] / piv["ɪ"]).std()),
+        "n_speakers": int(len(piv)),
+    }
+    (MODELS / "duration_reference.json").write_text(
+        json.dumps(ref, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"时长参照: /iː/:/ɪ/ = {ref['tense_ratio_mean']:.2f} ± {ref['tense_ratio_sd']:.2f}"
+          f" ({ref['n_speakers']} 位母语者)")
+    return ref

@@ -92,3 +92,48 @@ def plot_wer(out: Path):
     fig.savefig(out)
     plt.close(fig)
     print("saved", out)
+
+
+def plot_duration(out: Path):
+    p = RESULTS / "duration_tense_ratio.csv"
+    if not p.exists():
+        return
+    df = pd.read_csv(p)
+    fig, ax = plt.subplots(figsize=(4.8, 3.4))
+    for i, (grp, c, lab) in enumerate([("Native", "#2E5A88", "英语母语者"),
+                                       ("L2", "#C0504D", "中国英语学习者")]):
+        d = df[df["group"] == grp]
+        x = np.full(len(d), i) + np.random.default_rng(0).normal(0, 0.04, len(d))
+        ax.scatter(x, d["tense_ratio"], s=60, color=c, edgecolors="white",
+                   linewidths=0.8, zorder=3, label=lab)
+        ax.hlines(d["tense_ratio"].mean(), i - 0.18, i + 0.18, color=c, lw=2)
+    ax.axhline(1.0, ls=":", color="gray", lw=1)
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["英语母语者", "中国英语学习者"], fontsize=8)
+    ax.set_ylabel("长元音与短元音的时长比")
+    ax.set_title("图 6  松紧元音的时长区分", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(out)
+    plt.close(fig)
+    print("saved", out)
+
+
+def plot_rate(out: Path):
+    p = RESULTS / "prosody_rate.csv"
+    if not p.exists():
+        return
+    df = pd.read_csv(p)
+    fig, ax = plt.subplots(figsize=(4.8, 3.4))
+    for i, (grp, c) in enumerate([("Native", "#2E5A88"), ("L2", "#C0504D")]):
+        d = df[df["group"] == grp]["rate"].values
+        ax.scatter(np.full(len(d), i) + np.random.default_rng(1).normal(0, 0.04, len(d)),
+                   d, s=60, color=c, edgecolors="white", linewidths=0.8, zorder=3)
+        ax.hlines(d.mean(), i - 0.18, i + 0.18, color=c, lw=2)
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["英语母语者", "中国英语学习者"], fontsize=8)
+    ax.set_ylabel("语速（音节/秒）")
+    ax.set_title("图 7  朗读语速", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(out)
+    plt.close(fig)
+    print("saved", out)
