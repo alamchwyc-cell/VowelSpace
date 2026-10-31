@@ -6,3 +6,7 @@ logs/
 vendor/
 *.TextGrid
 .hf_cache/
+
+# 商业字体（不可分发）
+*.ttf
+*.ttc
