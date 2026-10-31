@@ -5,8 +5,10 @@ app.py — 元音发音诊断（Streamlit）
     streamlit run src/app.py
 """
 import json
+import os
 import sys
 import tempfile
+import threading
 from pathlib import Path
 
 import matplotlib
@@ -25,6 +27,9 @@ from reference import F1, F2  # noqa: E402
 style.setup()
 
 REF = json.loads((ROOT / "models/vowel_reference.json").read_text(encoding="utf-8"))
+
+# MFA 是单进程重度计算: 用全局锁把并发请求串行化, 避免互相干扰
+_ANALYSIS_LOCK = threading.Lock()
 
 st.set_page_config(page_title="英语元音发音诊断", layout="wide")
 st.title("英语元音发音诊断")
@@ -102,8 +107,18 @@ if st.button("开始诊断", type="primary", disabled=(up is None or not text.st
         f.write(up.getbuffer())
         wav_path = f.name
 
-    with st.spinner("对齐 + 测量中，大约 20–60 秒……"):
-        res = diagnose(wav_path, text.strip())
+    if not _ANALYSIS_LOCK.acquire(blocking=False):
+        st.info("当前有另一位用户正在分析，已进入队列，请稍候……")
+        _ANALYSIS_LOCK.acquire()
+    try:
+        with st.spinner("对齐 + 测量中，大约 20–60 秒……"):
+            res = diagnose(wav_path, text.strip())
+    finally:
+        _ANALYSIS_LOCK.release()
+        try:
+            os.unlink(wav_path)          # 隐私: 处理完立即删除上传文件
+        except OSError:
+            pass
 
     if not res["ok"]:
         st.error(res["reason"])
@@ -122,6 +137,8 @@ if st.button("开始诊断", type="primary", disabled=(up is None or not text.st
                 for p in res["problems"]:
                     st.markdown(f"**/{p['vowel']}/** — 偏离 {p['distance']:.2f}σ，"
                                 f"得分 {p['score']:.0f}")
+                    if p.get("direction"):
+                        st.caption(f"方向：{p['direction']}")
                     st.caption(p["advice"])
             else:
                 st.success("没有发现明显偏离的元音。")
@@ -134,3 +151,4 @@ if st.button("开始诊断", type="primary", disabled=(up is None or not text.st
 st.divider()
 st.caption("分数含义：与母语者分布的偏离程度，100 = 落在母语者分布中心，"
            "0 = 远离母语者分布。评分基于马氏距离与 χ² 分布，公式固定，未做人工调参。")
+st.caption("隐私：上传的录音仅用于本次分析，处理完成后立即从服务器删除，不保存任何音频与结果。")

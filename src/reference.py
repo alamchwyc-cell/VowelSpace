@@ -110,10 +110,17 @@ if __name__ == "__main__":
 
 
 def build_duration_reference(path=None):
-    """母语者各元音的时长中位数, 以及 /iː/:/ɪ/ 的时长比分布."""
-    p = path or (DATA / "durations.csv")
+    """母语者各元音的时长中位数, 以及 /iː/:/ɪ/ 的时长比分布.
+
+    优先用 formants_all.csv(仅重读元音, 与共振峰同口径); 回退到 durations.csv.
+    """
+    p = path or (DATA / "formants_all.csv")
+    if not Path(p).exists():
+        p = DATA / "durations.csv"
     df = pd.read_csv(p)
     nat = df[df["group"] == "Native"]
+    if "stress" in nat.columns:            # 只保留重读元音
+        nat = nat[nat["stress"].isin([1, 2])]
     piv = nat.groupby(["speaker", "vowel"])["dur"].median().unstack()
     ref = {
         "vowel_median": piv.median().to_dict(),

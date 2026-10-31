@@ -41,6 +41,30 @@ ACOUSTIC = MODELS / "acoustic"
 REF = MODELS / "vowel_reference.json"
 DUR_REF = MODELS / "duration_reference.json"
 MFA_ENV = os.environ.get("MFA_ENV", "mfa")
+
+
+def mfa_command():
+    """定位 mfa 可执行文件.
+
+    三种情况:
+      1) 容器里 MFA 直接装在 base 环境 -> PATH 上有 mfa
+      2) 本地用 conda 环境 mfa -> conda run -n mfa mfa
+      3) 显式指定 MFA_CMD
+    """
+    import shutil
+    from pathlib import Path as _P
+
+    explicit = os.environ.get("MFA_CMD")
+    if explicit:
+        return explicit.split()
+    # 本地 conda 环境 mfa 优先(base 里可能存在一个缺 _kalpy 的坏副本)
+    conda_bin = _P.home() / "miniconda3/envs" / MFA_ENV / "bin/mfa"
+    if conda_bin.exists():
+        return ["conda", "run", "-n", MFA_ENV, "mfa"]
+    # 容器里通常直接装在 PATH 上
+    if shutil.which("mfa"):
+        return ["mfa"]
+    return ["conda", "run", "-n", MFA_ENV, "mfa"]
 MIN_TOKENS = 25           # 少于这个数量, 归一化不可靠
 
 
@@ -51,8 +75,8 @@ def align_one(wav: Path, text: str, out_tg: Path):
         lab = f.name
     try:
         subprocess.run(
-            ["conda", "run", "-n", MFA_ENV, "mfa", "align_one",
-             str(wav), lab, str(DICT), str(ACOUSTIC), str(out_tg)],
+            mfa_command() + ["align_one",
+                             str(wav), lab, str(DICT), str(ACOUSTIC), str(out_tg)],
             check=True, capture_output=True, text=True)
     finally:
         os.unlink(lab)
@@ -67,17 +91,36 @@ def extract(wav: Path, tg: Path) -> pd.DataFrame:
 
 
 ADVICE = {
-    "ɪ": "与 /iː/ 区分不足。试着把舌位放低一点、肌肉放松，缩短时长。",
-    "iː": "与 /ɪ/ 靠得太近。注意这是一个长元音，舌位更高更前，并有明显的时长。",
-    "æ": "开口度可能不够。这个音要求下巴明显下降，介于 /e/ 与 /ɑː/ 之间。",
-    "e": "与 /æ/ 区分不清。注意 /e/ 的开口度小于 /æ/。",
-    "ɑː": "后低元音的位置偏了。舌头要后缩、压低。",
-    "ʌ": "与 /ɑː/ 混淆。这个是短促的中央元音，不要拖长。",
-    "ɔː": "圆唇度或舌位需调整。注意嘴唇要圆、舌位靠后。",
-    "ʊ": "与 /uː/ 区分不足。这个是短促、放松的元音。",
-    "uː": "注意圆唇并拉长；与 /ʊ/ 的区别在时长和紧张度。",
-    "ɜː": "中央元音位置偏了。舌位居中，嘴唇放松。",
+    "iː": "长元音、紧元音：舌位高而前，时长约为 /ɪ/ 的 1.3 倍以上。对比练习：sheep–ship、beat–bit。",
+    "ɪ": "短元音、松元音：比 /iː/ 更短更松，舌位略低、略中央。对比练习：ship–sheep、sit–seat。",
+    "e": "半高前元音，开口度介于 /ɪ/ 与 /æ/ 之间。对比练习：bed–bad、pen–pan。",
+    "æ": "低前元音，需要明显的下颌下降。对比练习：bad–bed、man–men。",
+    "ɑː": "后低长元音，舌后缩并压低，口型张开。对比练习：cart–cut、heart–hut。",
+    "ɔː": "后中长元音，圆唇且舌位靠后。对比练习：caught–cot、walk–wok。",
+    "ʊ": "短后元音，圆唇但放松、时长短。对比练习：full–fool、pull–pool。",
+    "uː": "长后元音，圆唇紧、时长长。对比练习：fool–full、pool–pull。",
+    "ʌ": "中央短元音，舌位居中、时长短促。对比练习：cut–cart、hut–heart。",
+    "ɜː": "中央长元音，舌位居中、唇形中性。对比练习：bird–bud、work–walk。",
 }
+
+
+def direction_text(vowel: str, user_xy, ref_mu, thr: float = 0.15) -> str:
+    """根据本次测量与母语者中心的偏移方向生成动作指示.
+
+    归一化 Bark 空间中:
+      F1 变小 = 舌位偏高(开口不足); F1 变大 = 舌位偏低(开口过大)
+      F2 变小 = 舌位偏后;           F2 变大 = 舌位偏前
+    """
+    d1 = float(user_xy[0] - ref_mu[0])
+    d2 = float(user_xy[1] - ref_mu[1])
+    parts = []
+    if abs(d1) >= thr:
+        parts.append("舌位偏高、开口不足" if d1 < 0 else "舌位偏低、开口过大")
+    if abs(d2) >= thr:
+        parts.append("舌位偏后" if d2 < 0 else "舌位偏前")
+    if not parts:
+        return "位置已在母语者范围内，无需调整"
+    return "、".join(parts) + f"（F1 {d1:+.2f}，F2 {d2:+.2f}）"
 
 
 def diagnose(wav_path, text: str, ref_path: Path = REF) -> dict:
@@ -126,6 +169,12 @@ def diagnose(wav_path, text: str, ref_path: Path = REF) -> dict:
     problems = per_vowel.head(3).to_dict("records")
     for p in problems:
         p["advice"] = ADVICE.get(p["vowel"], "")
+        rv = ref["vowels"].get(p["vowel"])
+        if rv is not None and p["vowel"] in med.index:
+            p["direction"] = direction_text(
+                p["vowel"], med.loc[p["vowel"]].values, np.array(rv["mu"]))
+        else:
+            p["direction"] = ""
 
     return {
         "ok": True,
@@ -152,6 +201,8 @@ def render(res: dict) -> str:
         for i, p in enumerate(res["problems"], 1):
             L.append(f"    {i}. /{p['vowel']}/  偏离 {p['distance']:.2f}σ   "
                      f"得分 {p['score']:.0f}")
+            if p.get("direction"):
+                L.append(f"       方向：{p['direction']}")
             L.append(f"       {p['advice']}")
     else:
         L.append("  没有发现明显偏离的元音。")
