@@ -630,7 +630,7 @@ token 数 & 标准 Lobanov & 收缩法 & 改进 \\
 
 \section{功能}
 
-\textbf{输入}：一段朗读录音（wav）与对应原文。
+\textbf{输入}：一段朗读录音与对应原文。录音格式支持 wav、mp3、m4a、aac、flac、ogg 等；解析时优先用 soundfile，失败则调用 ffmpeg 转码，统一转为 16\,kHz 单声道后再进入处理链。
 
 \textbf{输出}：
 
@@ -658,7 +658,7 @@ token 数 & 标准 Lobanov & 收缩法 & 改进 \\
 命令行调用：
 
 \begin{lstlisting}[language=bash]
-python3 src/diagnose.py --wav my.wav --text "the text you read"
+python3 src/diagnose.py --audio my.m4a --text "the text you read"
 \end{lstlisting}
 
 网页调用：
@@ -775,7 +775,7 @@ python3 src/intelligibility.py --per-speaker 40
 python3 src/figs_pub.py
 
 # 7. 诊断工具
-python3 src/diagnose.py --wav my.wav --text "the text you read"
+python3 src/diagnose.py --audio my.m4a --text "the text you read"
 \end{lstlisting}
 
 全部随机过程（重抽样、置换）固定种子；置换检验采用精确枚举，结果不依赖随机数。
