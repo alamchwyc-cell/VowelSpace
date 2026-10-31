@@ -21,11 +21,15 @@ FIGS = ROOT / "figs"
 FONT_EN = "Times New Roman"
 FONT_ZH = "SimSun"
 
-# 全项目统一配色
-C_L2 = "#C0504D"
-C_NATIVE = "#2E5A88"
+# 配色: Okabe-Ito 色盲安全调色板
+C_NATIVE = "#0072B2"      # Blue
+C_L2 = "#D55E00"          # Vermillion
 C_NEUTRAL = "#8C8C8C"
-C_ACCENT = "#7F9A3C"
+C_ACCENT = "#009E73"      # Bluish green
+
+# 形状: 保证黑白印刷仍可区分
+M_NATIVE = "o"
+M_L2 = "^"
 
 SINGLE = 85 / 25.4      # 3.35 in
 DOUBLE = 170 / 25.4     # 6.69 in
@@ -48,14 +52,14 @@ def setup(lang: str = "en"):
         "savefig.bbox": "tight",
         "savefig.pad_inches": 0.02,
         "axes.linewidth": 0.8,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
+        "axes.spines.top": True,      # 全包裹: 四边闭合(中文期刊/语音学惯例)
+        "axes.spines.right": True,
         "xtick.direction": "in",
         "ytick.direction": "in",
         "xtick.major.width": 0.8,
         "ytick.major.width": 0.8,
-        "xtick.major.size": 3,
-        "ytick.major.size": 3,
+        "xtick.major.size": 3.5,
+        "ytick.major.size": 3.5,
         "xtick.minor.size": 1.5,
         "lines.linewidth": 1.0,
         "legend.frameon": False,

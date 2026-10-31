@@ -96,10 +96,12 @@ def fig1_vowel_space(lang):
         if len(pts) >= 3:
             hull = ConvexHull(pts)
             poly = pts[np.append(hull.vertices, hull.vertices[0])]
-            ax.fill(poly[:, 1], poly[:, 0], color=c, alpha=0.10, lw=0)
+            ax.fill(poly[:, 1], poly[:, 0], color=c, alpha=0.06, lw=0)
             ax.plot(poly[:, 1], poly[:, 0], color=c, lw=0.9, alpha=0.75)
         n = g.speaker.nunique()
-        ax.scatter(m["F2_bark_n"], m["F1_bark_n"], s=22, color=c,
+        ax.scatter(m["F2_bark_n"], m["F1_bark_n"],
+                   s=26 if grp == "Native" else 33, color=c,
+                   marker=fs.M_NATIVE if grp == "Native" else fs.M_L2,
                    edgecolors="white", linewidths=0.5, zorder=3,
                    label=f"{lab} ({t['note_n'].format(n)})")
 
@@ -142,8 +144,10 @@ def fig2_pair(lang):
     for i, p in enumerate(pairs):
         for off, grp, c in [(-0.17, "Native", fs.C_NATIVE), (0.17, "L2", fs.C_L2)]:
             v = d[(d.pair == p) & (d.group == grp)]["distance"].values
-            ax.scatter(i + off + rng.normal(0, 0.032, len(v)), v, s=15,
-                       color=c, edgecolors="white", linewidths=0.4, zorder=3)
+            ax.scatter(i + off + rng.normal(0, 0.032, len(v)), v,
+                       s=18 if grp == "Native" else 23,
+                       color=c, marker=fs.M_NATIVE if grp == "Native" else fs.M_L2,
+                       edgecolors="white", linewidths=0.4, zorder=3)
             n = len(v)
             from scipy.stats import t as tdist
             ci = tdist.ppf(0.975, n - 1) * v.std(ddof=1) / np.sqrt(n) if n > 1 else 0
@@ -161,9 +165,9 @@ def fig2_pair(lang):
     ax.set_xlim(-0.6, len(pairs) - 0.4)
     ax.set_ylim(bottom=0)
     from matplotlib.lines import Line2D
-    ax.legend(handles=[Line2D([], [], marker="o", ls="", color=fs.C_NATIVE,
+    ax.legend(handles=[Line2D([], [], marker=fs.M_NATIVE, ls="", color=fs.C_NATIVE,
                               label=t["native"]),
-                       Line2D([], [], marker="o", ls="", color=fs.C_L2,
+                       Line2D([], [], marker=fs.M_L2, ls="", color=fs.C_L2,
                               label=t["l2"])],
               loc="upper center", bbox_to_anchor=(0.5, 1.16), ncol=2,
               handletextpad=0.3, columnspacing=1.5)
@@ -223,7 +227,8 @@ def fig4_perm(lang):
             transform=ax.transAxes, fontsize=6.5, color=fs.C_L2, va="top")
     ax.set_xlabel(t["perm_x"])
     ax.set_ylabel(t["perm_y"])
-    ax.set_title(t["perm_t"])
+    if lang == "zh":
+        ax.set_title(t["perm_t"])
     fig.tight_layout()
     fs.save(fig, "fig4_permutation", lang)
 
@@ -240,7 +245,9 @@ def fig5_wer(lang):
     for grp, c, lab in [("Native", fs.C_NATIVE, t["native"]),
                         ("L2", fs.C_L2, t["l2"])]:
         g = d[d.group == grp]
-        ax.scatter(g["mean_dist"], g["wer_mean"], s=26, color=c,
+        ax.scatter(g["mean_dist"], g["wer_mean"],
+                   s=28 if grp == "Native" else 35, color=c,
+                   marker=fs.M_NATIVE if grp == "Native" else fs.M_L2,
                    edgecolors="white", linewidths=0.5, zorder=3, label=lab)
 
     # 只标离群点, 避免重叠
@@ -267,7 +274,9 @@ def _dotplot(df, col, ylab, title, name, lang, dval, pval):
                                        ("L2", fs.C_L2, TXT[lang]["l2"])]):
         v = df[df.group == grp][col].values
         ax.scatter(np.full(len(v), i) + rng.normal(0, 0.055, len(v)), v,
-                   s=26, color=c, edgecolors="white", linewidths=0.5, zorder=3)
+                   s=28 if grp == "Native" else 35, color=c,
+                   edgecolors="white", linewidths=0.5, zorder=3,
+                   marker=fs.M_NATIVE if grp == "Native" else fs.M_L2)
         from scipy.stats import t as tdist
         ci = tdist.ppf(0.975, len(v) - 1) * v.std(ddof=1) / np.sqrt(len(v))
         ax.errorbar(i, v.mean(), yerr=ci, fmt="none", color=c,
@@ -277,7 +286,8 @@ def _dotplot(df, col, ylab, title, name, lang, dval, pval):
     ax.set_xticklabels([TXT[lang]["native"], TXT[lang]["l2"]], fontsize=7.5)
     ax.set_xlim(-0.55, 1.55)
     ax.set_ylabel(ylab)
-    ax.set_title(title)
+    if lang == "zh":
+        ax.set_title(title)
     ax.text(0.97, 0.95, mun(f"d = {dval:.2f}, p {pval}", lang), transform=ax.transAxes,
             va="top", ha="right", fontsize=6.5, color="#555555")
     fig.tight_layout()
