@@ -90,7 +90,13 @@ def main():
     ap.add_argument("--per-speaker", type=int, default=50)
     a = ap.parse_args()
 
-    l2 = pd.read_csv(DATA / "l2_meta.csv")
+    l2 = pd.read_csv(DATA / "official_meta.csv")
+    l2 = l2[l2.l1 == "Mandarin"].reset_index(drop=True)
+    l2["group"] = "L2"
+    # 官方包的转写文本在 transcript/ 下
+    l2["text"] = [ (Path(w).parent.parent / "transcript" / f"{u}.txt").read_text(
+                        encoding="utf-8").strip()
+                   for w, u in zip(l2["wav"], l2["utt"]) ]
     cmu = []
     for spk_dir in sorted((DATA / "cmu").glob("*")):
         if spk_dir.is_dir():

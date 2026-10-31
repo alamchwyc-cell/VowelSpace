@@ -64,7 +64,8 @@ IPA_ZH = {"iː": "IY", "ɪ": "IH", "e": "EH", "æ": "AE", "ɑː": "AA",
 
 
 def load_vowel_data():
-    df = pd.read_csv(DATA / "formants.csv")
+    raw = pd.read_csv(DATA / "formants_all.csv").dropna(subset=["F1", "F2"])
+    df = raw[((raw.group == "L2") & (raw.l1 == "Mandarin")) | (raw.group == "Native")]
     keep = []
     for spk, g in df.groupby("speaker"):
         m = pd.Series(True, index=g.index)
@@ -298,14 +299,14 @@ def fig6_duration(lang):
     d = pd.read_csv(RESULTS / "duration_tense_ratio.csv")
     _dotplot(d, "tense_ratio", TXT[lang]["dur_y"],
              "Tense–lax duration contrast" if lang == "en" else "松紧元音的时长区分",
-             "fig6_duration", lang, -2.94, "= 0.008")
+             "fig6_duration", lang, -1.06, "= 0.074")
 
 
 def fig7_rate(lang):
     d = pd.read_csv(RESULTS / "prosody_rate.csv")
     _dotplot(d, "rate", TXT[lang]["rate_y"],
              "Speech rate" if lang == "en" else "朗读语速",
-             "fig7_rate", lang, -2.95, "< 0.001")
+             "fig7_rate", lang, -2.51, "= 0.005")
 
 
 def main():
@@ -322,6 +323,50 @@ def main():
         fig5_wer(lang)
         fig6_duration(lang)
         fig7_rate(lang)
+        fig8_l1(lang)
+
+
+
+
+L1_ZH = {"English": "英语母语", "Mandarin": "普通话", "Arabic": "阿拉伯语",
+         "Hindi": "印地语", "Korean": "韩语", "Spanish": "西班牙语",
+         "Vietnamese": "越南语"}
+
+
+def fig8_l1(lang):
+    """跨母语背景: 每位说话人的 /ɪ/–/iː/ 距离."""
+    from scipy.stats import kruskal, mannwhitneyu
+    d = pd.read_csv(RESULTS / "multi_speaker_level.csv")
+    order = (d.groupby("l1")["ɪ-iː"].mean().sort_values(ascending=False).index.tolist())
+
+    fig, ax = plt.subplots(figsize=(fs.DOUBLE * 0.62, 2.7))
+    rng = np.random.default_rng(2)
+    for i, g in enumerate(order):
+        v = d[d.l1 == g]["ɪ-iː"].dropna().values
+        c = fs.C_NATIVE if g == "English" else fs.C_L2
+        ax.scatter(np.full(len(v), i) + rng.normal(0, 0.06, len(v)), v,
+                   s=30 if g == "English" else 26, color=c,
+                   marker=fs.M_NATIVE if g == "English" else fs.M_L2,
+                   edgecolors="white", linewidths=0.5, zorder=3)
+        ax.plot([i - 0.2, i + 0.2], [v.mean()] * 2, color=c, lw=1.6, zorder=4)
+        ax.text(i, -0.10, f"n={len(v)}", ha="center", fontsize=6, color="#666666",
+                transform=ax.get_xaxis_transform())
+
+    ax.set_xticks(range(len(order)))
+    ax.set_xticklabels([L1_ZH[g] if lang == "zh" else g for g in order], fontsize=7)
+    ax.set_ylabel("元音对距离（归一化 Bark）" if lang == "zh"
+                  else "Vowel-pair distance (normalized Bark)")
+    ax.set_ylim(bottom=0)
+
+    groups = [d[d.l1 == g]["ɪ-iː"].dropna().values for g in order]
+    H, p = kruskal(*groups)
+    ax.set_title("各组 /ɪ/–/iː/ 距离" if lang == "zh"
+                 else "Distance between /ɪ/ and /iː/ by L1", fontsize=8)
+    ax.margins(y=0.12)
+    ax.text(0.98, 0.96, f"Kruskal–Wallis p = {p:.3f}", transform=ax.transAxes,
+            fontsize=6.5, va="top", ha="right", color="#444444")
+    fig.tight_layout()
+    fs.save(fig, "fig8_l1_comparison", lang)
 
 
 if __name__ == "__main__":
