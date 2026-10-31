@@ -10,3 +10,10 @@ vendor/
 # 商业字体（不可分发）
 *.ttf
 *.ttc
+
+# LaTeX 中间文件
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz

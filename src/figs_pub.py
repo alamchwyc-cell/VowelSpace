@@ -114,8 +114,8 @@ def fig1_vowel_space(lang):
             p = med["Native"].loc[v].values
             d = p - center
             d = d / (np.linalg.norm(d) + 1e-9) * 11
-            lbl = v if lang == "en" else IPA_ZH.get(v, v)
-            ax.annotate(lbl, (p[1], p[0]), fontsize=7.5, color="#222222",
+            ax.annotate(v, (p[1], p[0]), fontsize=7.5, color="#222222",
+                        fontfamily=fs.FONT_EN,
                         xytext=(d[1], d[0]), textcoords="offset points",
                         ha="center", va="center", clip_on=False,
                         fontstyle="normal")
@@ -157,11 +157,11 @@ def fig2_pair(lang):
 
     def lab(pair):
         a, b = pair.split("-")
-        return f"{a}–{b}" if lang == "en" else f"{IPA_ZH.get(a, a)}–{IPA_ZH.get(b, b)}"
+        return f"{a}–{b}"
 
     ax.set_xticks(x)
     ax.set_xticklabels([f"{lab(p)}\nd = {s.loc[i,'d']:.2f}" for i, p in enumerate(pairs)],
-                       fontsize=7)
+                       fontsize=7, fontfamily=fs.FONT_EN)
     ax.set_ylabel(t["pair"])
     ax.set_xlim(-0.6, len(pairs) - 0.4)
     ax.set_ylim(bottom=0)
@@ -191,8 +191,7 @@ def fig3_forest(lang):
                 color=fs.C_L2, ecolor="#9AA5B1", elinewidth=0.8, capsize=2)
     ax.axvline(0, color="#666666", lw=0.7, ls="--")
     ax.set_yticks(y)
-    labels = [IPA_ZH[v] if lang == "zh" else v for v in d["vowel"]]
-    ax.set_yticklabels(labels)
+    ax.set_yticklabels(list(d["vowel"]), fontfamily=fs.FONT_EN)
     ax.set_xlabel(t["coef"])
     x0, x1 = ax.get_xlim()
     ax.set_xlim(x0, x1 + 0.20 * (x1 - x0))
@@ -224,12 +223,12 @@ def fig4_perm(lang):
     fig, ax = plt.subplots(figsize=(fs.SINGLE, 2.5))
     ax.hist(null, bins=18, color="#B8C2CC", edgecolor="white", linewidth=0.5)
     ax.axvline(obs, color=fs.C_L2, lw=1.2, zorder=4)
-    ax.text(0.03, 0.95, mun(f"observed = {obs:.2f}\nexact p = {p_exact:.3f}", lang),
-            transform=ax.transAxes, fontsize=6.5, color=fs.C_L2, va="top")
+    ax.text(0.98, 0.96, mun(f"observed = {obs:.2f}\nexact p = {p_exact:.3f}", lang),
+            transform=ax.transAxes, fontsize=6.5, color=fs.C_L2, va="top", ha="right",
+            bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.85))
     ax.set_xlabel(t["perm_x"])
     ax.set_ylabel(t["perm_y"])
-    if lang == "zh":
-        ax.set_title(t["perm_t"])
+
     fig.tight_layout()
     fs.save(fig, "fig4_permutation", lang)
 
@@ -287,8 +286,7 @@ def _dotplot(df, col, ylab, title, name, lang, dval, pval):
     ax.set_xticklabels([TXT[lang]["native"], TXT[lang]["l2"]], fontsize=7.5)
     ax.set_xlim(-0.55, 1.55)
     ax.set_ylabel(ylab)
-    if lang == "zh":
-        ax.set_title(title)
+    # 图内不放标题: 标题由 LaTeX 图注承担(发表规范)
     ax.text(0.97, 0.95, mun(f"d = {dval:.2f}, p {pval}", lang), transform=ax.transAxes,
             va="top", ha="right", fontsize=6.5, color="#555555")
     fig.tight_layout()
@@ -360,8 +358,7 @@ def fig8_l1(lang):
 
     groups = [d[d.l1 == g]["ɪ-iː"].dropna().values for g in order]
     H, p = kruskal(*groups)
-    ax.set_title("各组 /ɪ/–/iː/ 距离" if lang == "zh"
-                 else "Distance between /ɪ/ and /iː/ by L1", fontsize=8)
+
     ax.margins(y=0.12)
     ax.text(0.98, 0.96, f"Kruskal–Wallis p = {p:.3f}", transform=ax.transAxes,
             fontsize=6.5, va="top", ha="right", color="#444444")
