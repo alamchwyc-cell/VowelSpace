@@ -682,37 +682,6 @@ for self-supervised learning of speech representations. \textit{NeurIPS}, 2020.
 % =====================================================================
 \appendix
 
-\section{工程实现与复现}
-
-\subsection{目录结构}
-
-\begin{verbatim}
-VowelSpace/
-├── src/
-│   ├── fetch_full.py      官方 L2-ARCTIC 抓取
-│   ├── extract_all.py     共振峰 / 时长 / 韵律提取
-│   ├── analyze_multi.py   跨母语分析
-│   ├── rebuild_stats.py   普通话 vs 母语者统计
-│   ├── shrinkage.py       小样本收缩归一化
-│   ├── diagnose.py        单段录音诊断
-│   ├── intelligibility.py ASR 词错率
-│   ├── figs_pub.py        发表级图（中英两套）
-│   └── figstyle.py        样式：Times New Roman + 宋体
-├── figs/{en,zh}/          8 张图 × 3 格式
-├── results/               结果表
-├── report/                本报告
-└── run_all.sh             一键复现
-\end{verbatim}
-
-\subsection{复现步骤}
-
-\begin{verbatim}
-bash run_all.sh
-\end{verbatim}
-
-全部随机过程（重抽样、置换）固定种子；置换检验采用精确枚举，
-结果不依赖随机数。
-
 \section{完整结果表}
 
 详见 \texttt{results/} 目录，其中：
