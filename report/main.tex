@@ -628,6 +628,62 @@ token 数 & 标准 Lobanov & 收缩法 & 改进 \\
 \end{tabular}
 \end{table}
 
+\section{设计依据：研究结论如何决定工具形态}
+
+工具的功能不是先想需求再找数据，而是由第 \ref{ch:result} 章的结论倒推出来的。
+表 \ref{tab:design} 给出逐条对应关系。
+
+\begin{table}[H]
+\centering
+\caption{研究发现与工具设计决策的对应关系}
+\label{tab:design}
+\begin{tabular}{p{0.52\textwidth}p{0.40\textwidth}}
+\toprule
+研究发现 & 工具的设计决策 \\
+\midrule
+整体面积差异仅为趋势（$p=0.095$），而局部距离效应极大（$d=-3.83$）
+& 不给出单一总分，改为\textbf{逐元音评分}：分数低才说明问题，整体分会被平均掉 \\
+时长差异仅为趋势（$p=0.074$）
+& 时长作为\textbf{辅助信息}呈现，不进入主评分 \\
+范畴合并跨六种母语普遍（普通话 vs 其他二语组 $p=0.73$）
+& 参照统一采用母语者分布，\textbf{不限定}服务对象为中国学习者 \\
+评分与 ASR 可懂度相关 $\rho=0.937$
+& 页面标注评分的\textbf{效度来源}，而非仅给出数字 \\
+元音对距离在个体尺度不稳定（见下）
+& \textbf{不输出}元音对距离，只输出逐元音的单点偏离 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+最后一行值得单独说明。元音对距离是本研究效应最大的指标（\ipa{ɑː}–\ipa{ʌ}，$d=-3.83$），
+直觉上应直接搬进工具。但组均值与个体测量是两回事：个体只有几十个 token，
+中位数估计的噪声很大。
+
+为此做了专门的可靠性检验（\texttt{src/validate\_pair\_reliability.py}）：以每位说话人
+全样本算出的类别（弱／中／正常）为基准，随机抽取 $n$ 个 token 重算，统计类别一致率。
+三分类的随机水平为 33\%，结果见表 \ref{tab:reliab}。
+
+\begin{table}[H]
+\centering
+\caption{元音对距离类别的重测一致率}
+\label{tab:reliab}
+\begin{tabular}{lcccc}
+\toprule
+元音对 & $n=20$ & $n=30$ & $n=50$ & $n=80$ \\
+\midrule
+\ipa{ɪ}–\ipa{iː} & 0.645 & 0.696 & 0.772 & 0.832 \\
+\ipa{ɑː}–\ipa{ʌ} & 0.393 & 0.430 & 0.484 & 0.489 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+在可用录音长度（约 $n=50$）下，\ipa{ɪ}–\ipa{iː} 的一致率为 0.772，\ipa{ɑː}–\ipa{ʌ}
+仅 0.484——后者已接近随机水平。因此\textbf{该指标不适合作为个体诊断输出}，
+工具只保留稳定的逐元音单点偏离。
+
+这一决定本身也体现了研究对工具的作用：\textbf{研究不仅告诉工具该做什么，
+也告诉工具不该做什么。}
+
 \section{功能}
 
 \textbf{输入}：一段朗读录音与对应原文。录音格式支持 wav、mp3、m4a、aac、flac、ogg 等；解析时优先用 soundfile，失败则调用 ffmpeg 转码，统一转为 16\,kHz 单声道后再进入处理链。
