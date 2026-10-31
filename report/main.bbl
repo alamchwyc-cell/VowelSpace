@@ -1,0 +1,614 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{jasa2024}{article}{}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of the Acoustical Society of America}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{number}{5}
+      \field{title}{Acoustic analysis of {English} tense and lax vowels: Comparing the production between {Mandarin Chinese} learners and native {English} speakers}
+      \field{usera}{J}
+      \field{userd}{english}
+      \field{volume}{155}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{pages}{3071\bibrangedash 3085}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1121/10.0026021
+      \endverb
+      \keyw{jasa2024}
+    \endentry
+    \entry{bradlow1996}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=1c67ceb2c100109be6790aad37754bb0}{%
+           family={Bradlow},
+           familyi={B\bibinitperiod},
+           given={Ann\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=078bbf4eec91bd0531074893848683f7}{%
+           family={Torretta},
+           familyi={T\bibinitperiod},
+           given={Gina\bibnamedelima M.},
+           giveni={G\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=462209d75312cb8f556d740963d93ea3}{%
+           family={Pisoni},
+           familyi={P\bibinitperiod},
+           given={David\bibnamedelima B.},
+           giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \name{namea}{3}{}{%
+        {{hash=1c67ceb2c100109be6790aad37754bb0}{%
+           family={Bradlow},
+           familyi={B\bibinitperiod},
+           given={Ann\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=078bbf4eec91bd0531074893848683f7}{%
+           family={Torretta},
+           familyi={T\bibinitperiod},
+           given={Gina\bibnamedelima M.},
+           giveni={G\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=462209d75312cb8f556d740963d93ea3}{%
+           family={Pisoni},
+           familyi={P\bibinitperiod},
+           given={David\bibnamedelima B.},
+           giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{9330783f0fad2a0381db5974879808e1}
+      \strng{fullhash}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{fullhashraw}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{bibnamehash}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{authorbibnamehash}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{authornamehash}{9330783f0fad2a0381db5974879808e1}
+      \strng{authorfullhash}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{authorfullhashraw}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{nameabibnamehash}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{nameanamehash}{9330783f0fad2a0381db5974879808e1}
+      \strng{nameafullhash}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \strng{nameafullhashraw}{710ac07b6b13225d6b7f53dae1c0d06a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Speech Communication}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{number}{3--4}
+      \field{title}{Intelligibility of normal speech {I}: Global and fine-grained acoustic-phonetic talker characteristics}
+      \field{usera}{J}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{volume}{20}
+      \field{year}{1996}
+      \field{dateera}{ce}
+      \field{pages}{255\bibrangedash 272}
+      \range{pages}{18}
+      \keyw{bradlow1996}
+    \endentry
+    \entry{recallasr}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=358f55e147dbaebaae8ce1eeaeb0953f}{%
+           family={Isaacs},
+           familyi={I\bibinitperiod},
+           given={Talia},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ecaff431f89ffbe0ca570592c2f32ed7}{%
+           family={Trofimovich},
+           familyi={T\bibinitperiod},
+           given={Pavel},
+           giveni={P\bibinitperiod}}}%
+      }
+      \name{namea}{2}{}{%
+        {{hash=358f55e147dbaebaae8ce1eeaeb0953f}{%
+           family={Isaacs},
+           familyi={I\bibinitperiod},
+           given={Talia},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ecaff431f89ffbe0ca570592c2f32ed7}{%
+           family={Trofimovich},
+           familyi={T\bibinitperiod},
+           given={Pavel},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{7c5cc070dcfaed98c2874cb12f3d10f5}
+      \strng{fullhash}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{fullhashraw}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{bibnamehash}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{authorbibnamehash}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{authornamehash}{7c5cc070dcfaed98c2874cb12f3d10f5}
+      \strng{authorfullhash}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{authorfullhashraw}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{nameabibnamehash}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{nameanamehash}{7c5cc070dcfaed98c2874cb12f3d10f5}
+      \strng{nameafullhash}{ca7d9022c8de01e2d048860ac15cf529}
+      \strng{nameafullhashraw}{ca7d9022c8de01e2d048860ac15cf529}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ReCALL}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{note}{ASR 与母语听辨者在词错类型与比例上高度相似}
+      \field{title}{Assessment of {L2} intelligibility: Comparing {L1} listeners and automatic speech recognition}
+      \field{usera}{J}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \keyw{recallasr}
+    \endentry
+    \entry{visiblevowels}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=956a33652988fdfd8c46827dec9a2e84}{%
+           family={Heeringa},
+           familyi={H\bibinitperiod},
+           given={Wilbert\bibnamedelima J.},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=850a755b9561c60888b8b5149a9e41d3}{%
+           family={Van\bibnamedelimb de\bibnamedelima Velde},
+           familyi={V\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={Hans},
+           giveni={H\bibinitperiod}}}%
+      }
+      \name{namea}{2}{}{%
+        {{hash=956a33652988fdfd8c46827dec9a2e84}{%
+           family={Heeringa},
+           familyi={H\bibinitperiod},
+           given={Wilbert\bibnamedelima J.},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=850a755b9561c60888b8b5149a9e41d3}{%
+           family={Van\bibnamedelimb de\bibnamedelima Velde},
+           familyi={V\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={Hans},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{144027607f7bbbde7fc0911748595fc7}
+      \strng{fullhash}{e25c777c1ac4787593328d22131a2490}
+      \strng{fullhashraw}{e25c777c1ac4787593328d22131a2490}
+      \strng{bibnamehash}{e25c777c1ac4787593328d22131a2490}
+      \strng{authorbibnamehash}{e25c777c1ac4787593328d22131a2490}
+      \strng{authornamehash}{144027607f7bbbde7fc0911748595fc7}
+      \strng{authorfullhash}{e25c777c1ac4787593328d22131a2490}
+      \strng{authorfullhashraw}{e25c777c1ac4787593328d22131a2490}
+      \strng{nameabibnamehash}{e25c777c1ac4787593328d22131a2490}
+      \strng{nameanamehash}{144027607f7bbbde7fc0911748595fc7}
+      \strng{nameafullhash}{e25c777c1ac4787593328d22131a2490}
+      \strng{nameafullhashraw}{e25c777c1ac4787593328d22131a2490}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{CLARIN Annual Conference}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{title}{Visible Vowels: a Tool for the Visualization of Vowel Variation}
+      \field{usera}{C}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \keyw{visiblevowels}
+    \endentry
+    \entry{vowspace}{inproceedings}{}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Australasian Language Technology Association Workshop (ALTA)}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{title}{An Automatic Vowel Space Generator for Language Learners}
+      \field{usera}{C}
+      \field{userd}{english}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \keyw{vowspace}
+    \endentry
+    \entry{icphs2023}{inproceedings}{}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 20th International Congress of Phonetic Sciences (ICPhS)}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{title}{Knowledge-driven vs. data-driven methods for {L2} vowel assessment}
+      \field{usera}{C}
+      \field{userd}{english}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \keyw{icphs2023}
+    \endentry
+    \entry{l2arctic}{inproceedings}{}{}
+      \name{author}{7}{}{%
+        {{hash=7b514c29bb94ad3f6e0f8fa6d91ddc45}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Guanlong},
+           giveni={G\bibinitperiod}}}%
+        {{hash=62f5ee7c50b20b10748edcc6d6b2a75a}{%
+           family={Sonsaat},
+           familyi={S\bibinitperiod},
+           given={Sinem},
+           giveni={S\bibinitperiod}}}%
+        {{hash=5f4d6b72078f3537a6490860e4e03440}{%
+           family={Silpachai},
+           familyi={S\bibinitperiod},
+           given={Alif},
+           giveni={A\bibinitperiod}}}%
+        {{hash=aaee64873c4e7ca415346cc6dc22739a}{%
+           family={Lucic},
+           familyi={L\bibinitperiod},
+           given={Ivana},
+           giveni={I\bibinitperiod}}}%
+        {{hash=8437f7c06aa97452cc3eb069268ccdb7}{%
+           family={Chukharev-Hudilainen},
+           familyi={C\bibinithyphendelim H\bibinitperiod},
+           given={Evgeny},
+           giveni={E\bibinitperiod}}}%
+        {{hash=224bb0e557cdfc275a192894f9c32603}{%
+           family={Levis},
+           familyi={L\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0e7c2c39d97457715a7465a75cb42fca}{%
+           family={Gutierrez-Osuna},
+           familyi={G\bibinithyphendelim O\bibinitperiod},
+           given={Ricardo},
+           giveni={R\bibinitperiod}}}%
+      }
+      \name{namea}{7}{}{%
+        {{hash=7b514c29bb94ad3f6e0f8fa6d91ddc45}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Guanlong},
+           giveni={G\bibinitperiod}}}%
+        {{hash=62f5ee7c50b20b10748edcc6d6b2a75a}{%
+           family={Sonsaat},
+           familyi={S\bibinitperiod},
+           given={Sinem},
+           giveni={S\bibinitperiod}}}%
+        {{hash=5f4d6b72078f3537a6490860e4e03440}{%
+           family={Silpachai},
+           familyi={S\bibinitperiod},
+           given={Alif},
+           giveni={A\bibinitperiod}}}%
+        {{hash=aaee64873c4e7ca415346cc6dc22739a}{%
+           family={Lucic},
+           familyi={L\bibinitperiod},
+           given={Ivana},
+           giveni={I\bibinitperiod}}}%
+        {{hash=8437f7c06aa97452cc3eb069268ccdb7}{%
+           family={Chukharev-Hudilainen},
+           familyi={C\bibinithyphendelim H\bibinitperiod},
+           given={Evgeny},
+           giveni={E\bibinitperiod}}}%
+        {{hash=224bb0e557cdfc275a192894f9c32603}{%
+           family={Levis},
+           familyi={L\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0e7c2c39d97457715a7465a75cb42fca}{%
+           family={Gutierrez-Osuna},
+           familyi={G\bibinithyphendelim O\bibinitperiod},
+           given={Ricardo},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{6a48e59200872b0f83fee47d6fd53544}
+      \strng{fullhash}{f90d2448d17a714a2ed9c6c12ff9c638}
+      \strng{fullhashraw}{f90d2448d17a714a2ed9c6c12ff9c638}
+      \strng{bibnamehash}{73474e43d302c39bf4b0a25fa272e6a4}
+      \strng{authorbibnamehash}{73474e43d302c39bf4b0a25fa272e6a4}
+      \strng{authornamehash}{6a48e59200872b0f83fee47d6fd53544}
+      \strng{authorfullhash}{f90d2448d17a714a2ed9c6c12ff9c638}
+      \strng{authorfullhashraw}{f90d2448d17a714a2ed9c6c12ff9c638}
+      \strng{nameabibnamehash}{73474e43d302c39bf4b0a25fa272e6a4}
+      \strng{nameanamehash}{6a48e59200872b0f83fee47d6fd53544}
+      \strng{nameafullhash}{f90d2448d17a714a2ed9c6c12ff9c638}
+      \strng{nameafullhashraw}{f90d2448d17a714a2ed9c6c12ff9c638}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of Interspeech}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{title}{{L2-ARCTIC}: A Non-native {English} Speech Corpus}
+      \field{usera}{C}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{pages}{2948\bibrangedash 2952}
+      \range{pages}{5}
+      \keyw{l2arctic}
+    \endentry
+    \entry{cmuarctic}{report}{}{}
+      \name{author}{2}{}{%
+        {{hash=fa9abba0237a62b66810218ffda60b2b}{%
+           family={Kominek},
+           familyi={K\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=bb7714114db2d379a2607d2438c9ceeb}{%
+           family={Black},
+           familyi={B\bibinitperiod},
+           given={Alan\bibnamedelima W.},
+           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \name{namea}{2}{}{%
+        {{hash=fa9abba0237a62b66810218ffda60b2b}{%
+           family={Kominek},
+           familyi={K\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=bb7714114db2d379a2607d2438c9ceeb}{%
+           family={Black},
+           familyi={B\bibinitperiod},
+           given={Alan\bibnamedelima W.},
+           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Carnegie Mellon University}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \list{publisher}{1}{%
+        {Carnegie Mellon University}%
+      }
+      \strng{namehash}{2edbac49ad92673a3cd1bb4397ffb17f}
+      \strng{fullhash}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{fullhashraw}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{bibnamehash}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{authorbibnamehash}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{authornamehash}{2edbac49ad92673a3cd1bb4397ffb17f}
+      \strng{authorfullhash}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{authorfullhashraw}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{nameabibnamehash}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{nameanamehash}{2edbac49ad92673a3cd1bb4397ffb17f}
+      \strng{nameafullhash}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \strng{nameafullhashraw}{1c0f8d6dd60e406f98dd4c1306e8d102}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{number}{CMU-LTI-03-177}
+      \field{title}{{CMU ARCTIC} databases for speech synthesis}
+      \field{usera}{R}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \keyw{cmuarctic}
+    \endentry
+    \entry{traunmuller1990}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=eb8817f038edb01900d826da782870ef}{%
+           family={Traunmüller},
+           familyi={T\bibinitperiod},
+           given={Hartmut},
+           giveni={H\bibinitperiod}}}%
+      }
+      \name{namea}{1}{}{%
+        {{hash=eb8817f038edb01900d826da782870ef}{%
+           family={Traunmüller},
+           familyi={T\bibinitperiod},
+           given={Hartmut},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{eb8817f038edb01900d826da782870ef}
+      \strng{fullhash}{eb8817f038edb01900d826da782870ef}
+      \strng{fullhashraw}{eb8817f038edb01900d826da782870ef}
+      \strng{bibnamehash}{eb8817f038edb01900d826da782870ef}
+      \strng{authorbibnamehash}{eb8817f038edb01900d826da782870ef}
+      \strng{authornamehash}{eb8817f038edb01900d826da782870ef}
+      \strng{authorfullhash}{eb8817f038edb01900d826da782870ef}
+      \strng{authorfullhashraw}{eb8817f038edb01900d826da782870ef}
+      \strng{nameabibnamehash}{eb8817f038edb01900d826da782870ef}
+      \strng{nameanamehash}{eb8817f038edb01900d826da782870ef}
+      \strng{nameafullhash}{eb8817f038edb01900d826da782870ef}
+      \strng{nameafullhashraw}{eb8817f038edb01900d826da782870ef}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of the Acoustical Society of America}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{number}{1}
+      \field{title}{Analytical expressions for the tonotopic sensory scale}
+      \field{usera}{J}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{volume}{88}
+      \field{year}{1990}
+      \field{dateera}{ce}
+      \field{pages}{97\bibrangedash 100}
+      \range{pages}{4}
+      \keyw{traunmuller1990}
+    \endentry
+    \entry{lobanov1971}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=aae9300aeedac1816dbf0e7319cbea9a}{%
+           family={Lobanov},
+           familyi={L\bibinitperiod},
+           given={Boris\bibnamedelima M.},
+           giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \name{namea}{1}{}{%
+        {{hash=aae9300aeedac1816dbf0e7319cbea9a}{%
+           family={Lobanov},
+           familyi={L\bibinitperiod},
+           given={Boris\bibnamedelima M.},
+           giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{fullhash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{fullhashraw}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{bibnamehash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{authorbibnamehash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{authornamehash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{authorfullhash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{authorfullhashraw}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{nameabibnamehash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{nameanamehash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{nameafullhash}{aae9300aeedac1816dbf0e7319cbea9a}
+      \strng{nameafullhashraw}{aae9300aeedac1816dbf0e7319cbea9a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Soviet Physics Acoustics}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{title}{Classification of {Russian} vowels by the method of formation of the spectral envelope}
+      \field{usera}{J}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{volume}{17}
+      \field{year}{1971}
+      \field{dateera}{ce}
+      \field{pages}{269\bibrangedash 271}
+      \range{pages}{3}
+      \keyw{lobanov1971}
+    \endentry
+    \entry{wav2vec2}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=e478046d4abc39e9814f6e364a736511}{%
+           family={Baevski},
+           familyi={B\bibinitperiod},
+           given={Alexei},
+           giveni={A\bibinitperiod}}}%
+        {{hash=86718cd959eccc231b89841a6abbde4c}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Yuhao},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=838ae213145f7410d963d9727504b2df}{%
+           family={Mohamed},
+           familyi={M\bibinitperiod},
+           given={Abdelrahman},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d3ff0eff0a1d1258618c88f2ec57095f}{%
+           family={Auli},
+           familyi={A\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{namea}{4}{}{%
+        {{hash=e478046d4abc39e9814f6e364a736511}{%
+           family={Baevski},
+           familyi={B\bibinitperiod},
+           given={Alexei},
+           giveni={A\bibinitperiod}}}%
+        {{hash=86718cd959eccc231b89841a6abbde4c}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Yuhao},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=838ae213145f7410d963d9727504b2df}{%
+           family={Mohamed},
+           familyi={M\bibinitperiod},
+           given={Abdelrahman},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d3ff0eff0a1d1258618c88f2ec57095f}{%
+           family={Auli},
+           familyi={A\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{3e54e4e0c7457352871cb1cf97b9ed92}
+      \strng{fullhash}{f96a13c5747d71a5f892a49a4c2ea941}
+      \strng{fullhashraw}{f96a13c5747d71a5f892a49a4c2ea941}
+      \strng{bibnamehash}{83c6b6b6c1b4f5a5d525cf529f858812}
+      \strng{authorbibnamehash}{83c6b6b6c1b4f5a5d525cf529f858812}
+      \strng{authornamehash}{3e54e4e0c7457352871cb1cf97b9ed92}
+      \strng{authorfullhash}{f96a13c5747d71a5f892a49a4c2ea941}
+      \strng{authorfullhashraw}{f96a13c5747d71a5f892a49a4c2ea941}
+      \strng{nameabibnamehash}{83c6b6b6c1b4f5a5d525cf529f858812}
+      \strng{nameanamehash}{3e54e4e0c7457352871cb1cf97b9ed92}
+      \strng{nameafullhash}{f96a13c5747d71a5f892a49a4c2ea941}
+      \strng{nameafullhashraw}{f96a13c5747d71a5f892a49a4c2ea941}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NeurIPS)}
+      \field{langid}{english}
+      \field{languageid}{english}
+      \field{lansortorder}{4}
+      \field{title}{wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations}
+      \field{usera}{C}
+      \field{userd}{english}
+      \field{userf}{english}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \keyw{wav2vec2}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

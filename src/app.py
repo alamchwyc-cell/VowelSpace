@@ -26,8 +26,8 @@ style.setup()
 
 REF = json.loads((ROOT / "models/vowel_reference.json").read_text(encoding="utf-8"))
 
-st.set_page_config(page_title="英语元音发音诊断", page_icon="🎙️", layout="wide")
-st.title("🎙️ 英语元音发音诊断")
+st.set_page_config(page_title="英语元音发音诊断", layout="wide")
+st.title("英语元音发音诊断")
 st.caption("读一段英文，看看你的元音和英语母语者差在哪里。")
 
 SAMPLE_TEXT = ("Author of the danger trail, Philip Steels, etc. "
@@ -86,7 +86,7 @@ with st.sidebar:
         "录音要求：安静环境、正常语速、不要刻意放慢。"
     )
     st.divider()
-    st.caption("参照：7 位英语母语者，13,507 个元音测量")
+    st.caption("参照：7 位英语母语者，17,281 个元音样本")
 
 col1, col2 = st.columns([1, 1])
 with col1:

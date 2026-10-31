@@ -17,3 +17,11 @@ vendor/
 *.toc
 *.out
 *.synctex.gz
+*.bcf
+*.blg
+*.run.xml
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.xdv

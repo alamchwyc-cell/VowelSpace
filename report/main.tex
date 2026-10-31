@@ -1,130 +1,178 @@
-% =====================================================================
-% 英语元音范畴合并的跨母语比较与发音诊断效度验证
-% 全流程工作报告
-% 编译：xelatex main.tex （跑两遍以生成目录与交叉引用）
-% =====================================================================
-\documentclass[11pt,a4paper]{ctexart}
+\documentclass[12pt,a4paper,fontset=fandol]{ctexrep}
 
-% ---------- 页面 ----------
-\usepackage[top=2.5cm,bottom=2.5cm,left=2.6cm,right=2.6cm]{geometry}
-\usepackage{amsmath,amssymb,bm}
-\usepackage{booktabs,longtable,array,multirow}
-\usepackage{enumitem}
-\usepackage[table]{xcolor}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
 \usepackage{graphicx}
-\usepackage{caption}
-\usepackage{titlesec}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{float}
 \usepackage{fancyhdr}
-\usepackage{lastpage}
-\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,
-            urlcolor=blue!55!black]{hyperref}
-
-% ---------- 字体 ----------
-\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage[hidelinks]{hyperref}
+% 正文字体：Times New Roman 提供完整 IPA 字形；中文由 fontset=fandol 提供
 \setmainfont{Times New Roman}
 \setsansfont{Arial}
-\setmonofont{DejaVu Sans Mono}
-\usepackage{xeCJK}
-\setCJKmainfont{SimSun}
-\setCJKsansfont{SimHei}
-\setCJKmonofont{SimSun}
+\usepackage{xurl}
+\hypersetup{
+  pdftitle={英语元音范畴合并的跨母语比较与发音诊断效度验证},
+  pdfauthor={【姓名】},
+  pdfkeywords={二语语音, 元音空间, 范畴合并, 母语迁移, 发音诊断, 可懂度}
+}
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\addbibresource{refs.bib}
+\AtBeginBibliography{\footnotesize}
+\setlength{\bibitemsep}{0.15em}
 
-% ---------- 标题样式 ----------
-\titleformat{\section}{\heiti\large}{\thesection}{0.8em}{}
-\titleformat{\subsection}{\heiti\normalsize}{\thesubsection}{0.7em}{}
-\titleformat{\subsubsection}{\heiti\normalsize}{\thesubsubsection}{0.6em}{}
-\titlespacing*{\section}{0pt}{1.6ex plus .2ex}{1.0ex}
-\titlespacing*{\subsection}{0pt}{1.2ex plus .2ex}{0.8ex}
+\graphicspath{{../figs/zh/}{figures/}}
+\onehalfspacing
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.2em}
 
-% ---------- 图与表 ----------
-\graphicspath{{../figs/zh/}}
-\captionsetup{font=small,labelfont=bf,labelsep=quad}
-\captionsetup[table]{skip=4pt}
-\renewcommand{\arraystretch}{1.15}
-
-% ---------- 页眉页脚 ----------
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small 英语元音范畴合并的跨母语比较与发音诊断效度验证}
-\fancyhead[R]{\small\thepage/\pageref{LastPage}}
+\fancyhead[R]{\small\leftmark}
+\fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
-% ---------- 常用命令 ----------
-\newcommand{\ipa}[1]{/#1/}
-\newcommand{\figref}[1]{图~\ref{#1}}
-\newcommand{\tabref}[1]{表~\ref{#1}}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color[HTML]{0055AA},
+  commentstyle=\color[HTML]{558855},
+  stringstyle=\color[HTML]{AA5500},
+  frame=single,
+  rulecolor=\color[HTML]{CCCCCC},
+  backgroundcolor=\color[HTML]{F7F7F7},
+  breaklines=true,
+  columns=fullflexible,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny\color[HTML]{999999}
+}
 
-\title{\heiti\LARGE 英语元音范畴合并的跨母语比较\\[4pt]
-       \heiti\LARGE 与发音诊断效度验证\\[10pt]
-       \normalsize\normalfont 全流程工作报告}
-\author{}
-\date{\today}
+\title{英语元音范畴合并的跨母语比较\\[0.3em]
+\large ——兼论可解释发音诊断的效度验证}
+\author{【姓名】\\ 专业：【专业】\\ 指导教师：【姓名】}
+\date{2026 年 10 月}
+
+\newcommand{\ipa}[1]{/#1/}
 
 \begin{document}
 
-% =====================================================================
+% ---------------- 封面 ----------------
 \begin{titlepage}
 \centering
-\vspace*{3.5cm}
-{\heiti\LARGE 英语元音范畴合并的跨母语比较}\\[8pt]
-{\heiti\LARGE 与发音诊断效度验证}\\[28pt]
-{\Large 全流程工作报告}\\[60pt]
-{\large
+\vspace*{1.6cm}
+{\zihao{2}\bfseries 英语元音范畴合并的跨母语比较\par}
+\vspace{0.3cm}
+{\zihao{2}\bfseries 与发音诊断效度验证\par}
+\vspace{0.4cm}
+{\zihao{4} ——数据、声学测量、统计推断与系统实现\par}
+\vspace{1.6cm}
+
 \begin{tabular}{rl}
-数据规模 & 31 位说话者，7{,}750 条录音，78{,}293 个元音样本\\[3pt]
-分析方法 & 音素级对齐 · 声学测量 · 混合效应模型 · 置换检验\\[3pt]
-主要产出 & 跨母语证据 · 诊断工具 · 可复现流程\\
-\end{tabular}}\\[80pt]
-{\large \today}
+{\zihao{4} 项目类型：} & {\zihao{4} 大学生创新创业训练计划} \\[0.5em]
+{\zihao{4} 作\qquad 者：} & {\zihao{4} 【姓名】} \\[0.5em]
+{\zihao{4} 专\qquad 业：} & {\zihao{4} 【专业】} \\[0.5em]
+{\zihao{4} 学\qquad 院：} & {\zihao{4} 【学院】} \\[0.5em]
+{\zihao{4} 指导教师：} & {\zihao{4} 【姓名】} \\
+\end{tabular}
+
+\vspace{1.2cm}
+{\zihao{5}
+\begin{tabular}{rl}
+数据规模： & 31 位说话者 · 6 种二语母语背景 · 7{,}750 条录音 \\[0.3em]
+ & 78{,}293 个元音样本 \\[0.3em]
+分析手段： & 音素级对齐 · LPC 共振峰 · Bark/Lobanov 归一化 \\[0.3em]
+ & 混合效应模型 · 精确置换检验 · 效应量 \\[0.3em]
+主要产出： & 跨母语证据 · 诊断工具 · 可复现流程 \\
+\end{tabular}}
+
 \vfill
+{\zihao{4} 2026 年 10 月\par}
 \end{titlepage}
 
-% =====================================================================
-\begin{abstract}
-\noindent
-本研究针对二语语音教学"反馈依赖主观听感、缺少客观诊断手段"的问题，构建了一套可解释的
-英语元音发音诊断方法，并对其效度进行了实验验证。
+% ---------------- 摘要 ----------------
+\chapter*{摘\quad 要}
+\addcontentsline{toc}{chapter}{摘要}
 
-研究采用对照设计：31 位说话者朗读\textbf{完全相同的 250 个句子}，其中 24 位为六种母语背景的
-二语学习者（含 5 位普通话母语者），7 位为英语母语者，共获得 7{,}750 条录音与 78{,}293 个
-元音样本。经音素级对齐后提取元音中点共振峰、元音时长与语速，在 Bark 标度上做说话人内
-Lobanov 归一化，以混合效应模型、置换检验与效应量进行统计推断。
+中国英语学习者的发音问题长期存在，但课堂反馈高度依赖教师的主观听感，缺少客观、可量化、
+可复现的诊断手段。本报告以 31 位说话者（六种母语背景的二语学习者 24 位 + 英语母语者 7 位）、
+7{,}750 条录音、78{,}293 个元音样本为基础，在\textbf{所有说话者朗读完全相同 250 个句子}的
+对照设计下，检验了二语英语元音范畴合并的成因，并构建了经效度验证的发音诊断方法。
 
-主要结果有三。其一，学习者的困难并非元音空间整体缩小：面积差异仅为趋势
-（$p=0.095$），但局部的 \ipa{ɑː}–\ipa{ʌ} 距离仅为母语者的 42\%（$d=-3.83$），
-\ipa{ɪ}–\ipa{iː} 为 34\%（$d=-2.43$）。其二，\textbf{跨六种母语背景的比较表明，这种
-范畴合并不是普通话特有的母语迁移}：七组整体差异显著（$p=0.002$），但普通话与其他二语组
-无差异（$p=0.73$），西班牙语与越南语的合并程度更强。其三，学习者的元音时长对比与语速
-亦系统性偏离（时长比 1.13 vs 1.27，趋势；语速 2.89 vs 3.64 音节/秒，$d=-2.51$）。
+三个主要结果如下。其一，\textbf{学习者的困难不是元音空间整体收缩，而是特定音位范畴的合并}：
+\ipa{ɑː}–\ipa{ʌ} 的声学距离仅为母语者的 42\%（Cohen's $d=-3.83$），\ipa{ɪ}–\ipa{iː} 为
+34\%（$d=-2.43$）；相对的，整体性的元音空间面积差异仅为趋势（$p=0.095$）。其二，
+\textbf{该合并不是普通话特有的母语迁移}：七组整体差异显著（Kruskal--Wallis
+$p=0.002$），但\textbf{普通话与其他二语组之间没有差异}（$p=0.73$），西班牙语与越南语的
+合并程度甚至更强——这否定了"普通话缺少松紧元音对立因而发生迁移"的通行解释。其三，
+\textbf{基于母语者参照分布的诊断评分与可懂度高度一致}：学习者与母语者的自动语音识别
+词错率分别为 24.0\% 与 7.7\%，评分与词错率的 Spearman $\rho=0.937$；即使仅在母语者组内，
+$\rho=1.000$，说明评分反映的是发音偏离本身而非组别标签。
 
-研究进一步以母语者参照分布构建马氏距离评分，并与自动语音识别词错率对照：学习者 24.0\%
-vs 母语者 7.7\%，评分与可懂度的 Spearman $\rho=0.937$（母语者组内 $\rho=1.000$）。据此
-实现的诊断工具可输出逐元音的偏离度、时长诊断与教学建议。
+此外，研究还发现学习者的语速显著偏慢（2.89 vs 3.64 音节/秒，$d=-2.51$），
+元音时长对比呈同方向趋势（$p=0.074$）。据此实现的诊断工具可输出逐元音的偏离度、
+松紧时长诊断与教学建议，全流程脚本化、可复现。
 
-\vspace{6pt}
-\noindent\textbf{关键词：}二语语音；元音空间；范畴合并；母语迁移；发音诊断；可懂度
-\end{abstract}
+\vspace{0.5em}
+\noindent\textbf{关键词：} 二语语音；元音空间；范畴合并；母语迁移；发音诊断；可懂度
 
-\newpage
+% ---------------- Abstract ----------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Pronunciation feedback in second-language classrooms still relies heavily on teachers'
+impressionistic judgement, lacking objective and reproducible diagnostics. Based on
+31 speakers (24 L2 learners from six first-language backgrounds and 7 native English
+speakers), 7{,}750 recordings and 78{,}293 vowel tokens, with \textbf{all speakers reading the
+same 250 sentences}, this report examines the origins of vowel category merging in L2 English
+and develops a validated, interpretable diagnostic method.
+
+Three findings stand out. First, the difficulty is \textbf{not a global shrinkage of the vowel
+space but the merging of specific categories}: the acoustic distance for \ipa{ɑː}--\ipa{ʌ} is only
+42\% of the native value ($d=-3.83$) and for \ipa{ɪ}--\ipa{iː} 34\% ($d=-2.43$), whereas the
+global vowel space area differs only by trend ($p=0.095$). Second, this merging
+\textbf{is not a Mandarin-specific transfer effect}: although the seven groups differ overall
+($p=0.002$), \textbf{Mandarin does not differ from the other L2 groups} ($p=0.73$), and Spanish
+and Vietnamese show even greater merging---refuting the common account that the absence of a
+tense--lax contrast in Mandarin drives the merger. Third, the \textbf{diagnostic score based on a
+native reference distribution agrees closely with intelligibility}: word error rates are 24.0\%
+for learners and 7.7\% for natives, and the score correlates with WER at Spearman $\rho=0.937$;
+within natives alone $\rho=1.000$.
+
+Learners also speak significantly more slowly (2.89 vs 3.64 syllables/s, $d=-2.51$), with a
+same-direction trend in the tense--lax duration ratio ($p=0.074$). A diagnostic tool is
+implemented accordingly, reporting per-vowel deviation, duration diagnostics and pedagogical
+suggestions. The full pipeline is scripted and reproducible.
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} L2 speech; vowel space; category merging; L1 transfer;
+pronunciation diagnosis; intelligibility
+
 \tableofcontents
 \newpage
 
 % =====================================================================
-\section{引言}
+\chapter{引言}
 
-\subsection{研究背景}
+\section{背景与问题}
 
-中国英语学习者的发音问题长期存在，但课堂反馈高度依赖教师的主观听感：同一位学生的同一段
-朗读，不同教师可能给出不同判断，且难以说明"错在哪、该怎么改"。这种定性反馈难以规模化，
+中国英语学习者的发音问题长期存在，但课堂反馈高度依赖教师的主观听感：同一段朗读，
+不同教师可能给出不同判断，且难以说明"错在哪、该怎么改"。这种定性反馈既难以规模化，
 也难以追踪进步。
 
-从语音学角度看，发音的可测量部分是声学参数。元音的音质主要由前两个共振峰（F1、F2）决定，
+从语音学角度看，发音的可测量部分是声学参数。元音音质主要由前两个共振峰（F1、F2）决定，
 二者分别对应舌位高低与前后；元音之间的声学距离因而可以直接反映"两个音是否被区分开"。
-这一可测量性，使得"把主观判断转化为客观诊断"在技术上成为可能。
+这一可测量性，使得把主观判断转化为客观诊断在技术上成为可能。
 
-\subsection{研究问题}
-
-本研究围绕三个问题展开：
+本报告要回答三个问题：
 
 \begin{enumerate}[leftmargin=2em,itemsep=2pt]
   \item 二语学习者的元音系统与母语者相比，差异是\textbf{整体性}的（空间收缩）还是
@@ -133,7 +181,30 @@ vs 母语者 7.7\%，评分与可懂度的 Spearman $\rho=0.937$（母语者组�
   \item 基于声学偏离构建的诊断评分，是否真的对应"别人能不能听懂"？
 \end{enumerate}
 
-\subsection{主要贡献}
+\section{研究现状}
+
+\textbf{二语元音的声学研究。}二语元音的声学对比已有大量积累。近年一项发表于
+\textit{JASA} 的研究系统比较了普通话母语者与英语母语者对英语松紧元音的产出，
+发现学习者在静态与动态频谱特征上均存在系统性差异\cite{jasa2024}。这类研究确立了
+"用共振峰测量二语元音"的范式，但多数只涉及单一母语背景。
+
+\textbf{元音空间与可懂度。}元音空间面积（vowel space area, VSA）是衡量发音"清晰度"的
+经典指标。已有研究表明，元音空间较大的说话者通常更易被听懂\cite{bradlow1996}。
+但 VSA 对个体差异极为敏感，在样本量有限时检验功效不足。
+
+\textbf{ASR 作为可懂度代理。}自动语音识别已被验证可作为可懂度的客观代理：有研究比较了
+ASR 与母语听辨者对二语语音的评分，发现两者的错误类型与比例高度相似\cite{recallasr}。
+
+\textbf{发音诊断工具。}\textit{Visible Vowels} 是一个成熟的网页应用，可对 f0、共振峰与
+时长做可视化\cite{visiblevowels}；亦有工作实现了自动生成学习者元音空间的工具\cite{vowspace}。
+在评分方法上，马氏距离、Pillai 分数等已被用于度量二语元音的偏离与重叠\cite{icphs2023}。
+
+\textbf{本研究的定位。}上述工作分别解决了"能否测量""能否可视化""能否用距离度量"的问题，
+但较少把三者串成完整的验证链：\textbf{参照分布 $\rightarrow$ 个体评分 $\rightarrow$ 可懂度检验}。
+本研究在此基础上做两件事：把样本扩展到六种母语背景以检验"母语迁移"解释，
+并把评分与 ASR 可懂度做逐人对照。
+
+\section{主要工作与贡献}
 
 \begin{enumerate}[leftmargin=2em,itemsep=2pt]
   \item \textbf{跨母语证据}：在六种母语背景、31 位说话者上，用统一对照设计检验了
@@ -141,63 +212,35 @@ vs 母语者 7.7\%，评分与可懂度的 Spearman $\rho=0.937$（母语者组�
         修正了流行的"母语迁移"解释。
   \item \textbf{方法对比}：证明整体性指标（元音空间面积）会掩盖局部效应，
         而元音对距离能揭示 $d<-3$ 量级的差异。
-  \item \textbf{效度验证}：把诊断评分与自动语音识别词错率逐人对照
-        （$\rho=0.937$），为"评分确实反映可懂度"提供了外部证据。
+  \item \textbf{效度验证}：把诊断评分与自动语音识别词错率逐人对照（$\rho=0.937$），
+        为"评分确实反映可懂度"提供了外部证据。
   \item \textbf{可复现实现}：从原始音频到诊断输出，全流程脚本化，并配以发表级图件。
 \end{enumerate}
 
-% =====================================================================
-\section{相关工作}
+\section{工作过程与报告结构}
 
-\subsection{二语元音的声学研究}
+工作过程可分为四步：\textbf{数据获取}（官方 L2-ARCTIC v5.0 与 CMU ARCTIC）$\rightarrow$
+\textbf{声学测量}（音素级对齐、共振峰、时长、韵律）$\rightarrow$
+\textbf{统计推断}（混合效应模型、置换检验、跨组比较）$\rightarrow$
+\textbf{系统实现}（诊断工具与可视化）。
 
-二语元音的声学对比已有大量积累。近年一项发表于 \textit{JASA} 的研究系统比较了普通话母语者
-与英语母语者对英语松紧元音的产出，发现学习者在静态与动态频谱特征上均存在系统性差异
-\cite{jasa2024}。这类研究确立了"用共振峰测量二语元音"的范式，但多数只涉及单一母语背景。
-
-\subsection{元音空间与可懂度}
-
-元音空间面积（vowel space area, VSA）是衡量发音"清晰度"的经典指标。已有研究表明，
-元音空间较大的说话者通常更易被听懂 \cite{bradlow1996}。但 VSA 对个体差异极为敏感，
-在样本量有限时检验功效不足，这一点在二语研究中常被忽略。
-
-自动语音识别（ASR）作为可懂度的客观代理已被验证：有研究比较了 ASR 与母语听辨者对二语
-语音的评分，发现两者的错误类型与比例高度相似 \cite{recall}。这为"用 ASR 词错率作为
-可懂度代理"提供了依据。
-
-\subsection{发音诊断工具}
-
-面向学习者的元音工具已有若干。\textit{Visible Vowels} 是一个成熟的网页应用，可对 f0、
-共振峰与时长做可视化 \cite{visiblevowels}；亦有工作实现了自动生成学习者元音空间的工具
-\cite{vowspace}。在评分方法上，马氏距离、Pillai 分数等已被用于度量二语元音的偏离与重叠
-\cite{icphs2023}。
-
-\subsection{本研究的定位}
-
-上述工作分别解决了"能否测量""能否可视化""能否用距离度量"的问题，但较少把三者串成一条
-完整的验证链：\textbf{参照分布 $\rightarrow$ 个体评分 $\rightarrow$ 可懂度检验}。
-本研究在此基础上做两件事：把样本扩展到六种母语背景以检验"母语迁移"解释，
-并把评分与 ASR 可懂度做逐人对照。
+报告第 \ref{ch:data} 章介绍数据与方法，第 \ref{ch:result} 章给出实验结果，
+第 \ref{ch:system} 章说明系统实现，第 \ref{ch:discuss} 章讨论，第 \ref{ch:concl} 章总结，
+第 \ref{ch:repro} 章给出复现方式，第 \ref{ch:code} 章列出关键代码。
 
 % =====================================================================
-\section{数据}
+\chapter{数据与方法}\label{ch:data}
 
-\subsection{语料来源}
+\section{数据来源与筛选}
 
-二语数据取自 L2-ARCTIC v5.0 \cite{l2arctic}，该语料由 24 位非母语者朗读 CMU ARCTIC 的
-提示句，覆盖阿拉伯语、印地语、韩语、普通话、西班牙语、越南语六种母语背景。语料自带
-音素级 TextGrid 标注。
+二语数据取自 L2-ARCTIC v5.0\cite{l2arctic}，该语料由 24 位非母语者朗读 CMU ARCTIC 的
+提示句，覆盖阿拉伯语、印地语、韩语、普通话、西班牙语、越南语六种母语背景，并自带
+音素级 TextGrid 标注。母语者数据取自 CMU ARCTIC\cite{cmuarctic}，选取 7 位美式英语母语者。
 
-母语者数据取自 CMU ARCTIC \cite{cmuarctic}，选取 7 位美式英语母语者。
+为使各组可比，每位说话者只取前 250 个提示句（\texttt{arctic\_a0001}–\texttt{arctic\_a0250}）。
+语料构成见表 \ref{tab:data}。
 
-\subsection{对照设计}
-
-两组朗读\textbf{完全相同的 250 个提示句}（\texttt{arctic\_a0001}–\texttt{arctic\_a0250}）。
-这一设计把文本内容、音素环境、句子长度全部固定，组间差异只能来自说话人本身。
-
-\subsection{数据规模}
-
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{语料构成}
 \label{tab:data}
@@ -206,7 +249,7 @@ vs 母语者 7.7\%，评分与可懂度的 Spearman $\rho=0.937$（母语者组�
 组别 & 说话人数 & 录音数 & 说明 \\
 \midrule
 英语母语者 & 7 & 1{,}750 & CMU ARCTIC \\
-普通话 & 5 & 1{,}250 & BWC/LXC/NCC/TNI/TXHC \\
+普通话 & 5 & 1{,}250 & BWC / LXC / NCC / TNI / TXHC \\
 阿拉伯语 & 4 & 1{,}000 & \\
 印地语 & 4 & 1{,}000 & \\
 韩语 & 4 & 1{,}000 & \\
@@ -218,35 +261,38 @@ vs 母语者 7.7\%，评分与可懂度的 Spearman $\rho=0.937$（母语者组�
 \end{tabular}
 \end{table}
 
-% =====================================================================
-\section{方法}
+\section{对照设计}
 
-\subsection{音素级对齐}
+两组朗读\textbf{完全相同的 250 个提示句}。这一设计把文本内容、音素环境、句子长度全部固定，
+组间差异只能来自说话人本身。这是本研究区别于"各说各的材料"式比较的关键。
 
-元音分析要求知道"每个元音出现在第几秒"。整段平均会把辅音、过渡段与静音混入。
-本研究使用语料自带的音素级 TextGrid 标注；母语者部分使用 Montreal Forced Aligner
-配合 CMU 发音词典与英语声学模型完成对齐。
+\section{音素级对齐}
 
-\subsection{共振峰提取}
+元音分析要求知道"每个元音出现在第几秒"。整段平均会把辅音、过渡段与静音混入。本研究使用
+语料自带的音素级 TextGrid 标注；母语者部分使用 Montreal Forced Aligner 配合 CMU 发音词典
+与英语声学模型完成对齐。
 
-对每个元音段取中间 50\% 作为稳定段（避开与相邻音素的过渡），以 LPC 方法每 5 ms 估计一次
-F1/F2，取中位数。
+\section{声学特征提取}
 
-取值限定在 F1 $\in$ [200, 1200] Hz、F2 $\in$ [500, 3500] Hz 且 F2 $>$ F1；
+对每个元音段取中间 50\% 作为稳定段（避开与相邻音素的过渡），以 LPC 方法每 5\,ms 估计一次
+F1/F2，取中位数。取值限定在 F1 $\in [200,1200]$\,Hz、F2 $\in [500,3500]$\,Hz 且 F2 $>$ F1；
 超出范围的读数视为 LPC 估计失败并剔除，而非"取平均凑数"。
+
 只保留重读元音（stress 1/2）——非重读元音会弱化，其共振峰不代表目标音位。
+除共振峰外，还记录每个元音的时长，并以同样方式计算每句话的语速与基频范围。
 
-\subsection{归一化与标度}
+\section{归一化与标度}
 
-共振峰频率随声道长度变化，女性 F1/F2 系统性高于男性约 15--20\%，远大于母语背景带来的
-差异。因此必须做说话人归一化。处理顺序为：
+共振峰频率随声道长度变化，女性 F1/F2 系统性高于男性约 15\%--20\%，远大于母语背景带来的
+差异，因此必须做说话人归一化。处理顺序为：
 
 \begin{equation}
 \text{Hz} \;\xrightarrow{\;\text{Bark}\;}\; \text{Bark}
 \;\xrightarrow{\;\text{Lobanov}\;}\; z
 \end{equation}
 
-先转到 Bark 感知标度，使距离与面积具有心理声学意义；再按说话人做 $z$ 变换：
+先转到 Bark 感知标度\cite{traunmuller1990}，使距离与面积具有心理声学意义；再按说话人
+做 $z$ 变换\cite{lobanov1971}：
 
 \begin{equation}
 z_i = \frac{x_i - \mu_s}{\sigma_s}
@@ -254,7 +300,7 @@ z_i = \frac{x_i - \mu_s}{\sigma_s}
 
 其中 $\mu_s,\sigma_s$ 为说话人 $s$ 在该维度上的均值与标准差。
 
-\subsection{指标定义}
+\section{指标定义}
 
 \textbf{元音空间面积（VSA）}：每位说话人各元音中位数点在 (F1, F2) 平面上的凸包面积。
 
@@ -264,7 +310,7 @@ z_i = \frac{x_i - \mu_s}{\sigma_s}
 
 \textbf{语速}：每句话的音节数除以语音段时长（音节/秒）。
 
-\subsection{统计推断}
+\section{统计推断}
 
 \textbf{混合效应模型}：同一说话人贡献数百个 token，彼此不独立。模型设定为
 
@@ -274,34 +320,47 @@ F_1 \sim \text{group} \times \text{vowel} + \text{gender} + (1 \mid \text{speake
 
 以说话人为随机截距，吸收个体基线差异。
 
-\textbf{置换检验}：在说话人层面打乱分组标签，构造零分布。当说话人数较少时采用\textbf{精确枚举}
-（全部 $\binom{n}{k}$ 种组合），而非随机抽样。
+\textbf{置换检验}：在说话人层面打乱分组标签，构造零分布。当说话人数较少时采用
+\textbf{精确枚举}（全部 $\binom{n}{k}$ 种组合），而非随机抽样。
 
 \textbf{效应量}：以 Cohen's $d$ 报告差异幅度，避免只报 $p$ 值。
 
-\subsection{可懂度代理}
+\section{可懂度代理}
 
-每位说话人随机取 40 句，用 wav2vec2-base-960h \cite{wav2vec2} 识别，与参考转写比对计算
-词错率（WER），作为可懂度的客观代理。
+每位说话人随机取 40 句，用 wav2vec2-base-960h\cite{wav2vec2} 识别，与参考转写比对计算
+词错率（WER），作为可懂度的客观代理。词的编辑距离按"替换 + 删除 + 插入"计算，
+分母为参考词数。
+
+\section{本章小结}
+
+本章确定了"同一批句子、同一套声学测量、同一套统计口径"的对照框架。这一框架的关键在于：
+文本被固定，因而组间差异只能来自说话人；归一化被固定，因而差异不来自声道长度；
+分析单位被明确为说话人，因而不会因 token 数量差异造成假阳性。
 
 % =====================================================================
-\section{结果}
+\chapter{实验与结果}\label{ch:result}
 
-\subsection{数据检查与口径修正}
+\section{实验设置}
 
-分析过程中发现并修正了两处口径问题，均记录于此以便核查。
+除特别说明外，组间比较均以\textbf{说话人}为分析单位（每位说话人一个观测值），
+采用非参数检验（Mann--Whitney $U$ 或 Kruskal--Wallis），并报告 Cohen's $d$。
+涉及 token 级的推断使用混合效应模型。显著性水平取 $\alpha=0.05$。
 
-\textbf{修正一：归一化顺序。} 初版把 Lobanov 作用在 Hz 上，却用未归一化的 Bark 值计算
-面积与距离，结论受性别差异污染。修正后元音空间面积的方向发生反转
-（由"学习者更大"变为"学习者更小"）。
+\section{数据检查与口径说明}
 
-\textbf{修正二：时长统计的重音口径。} 初版时长比包含非重读元音，而共振峰分析只用了重读
-元音，两者口径不一致。按重读元音重算后，时长效应由 $d=-2.94$（$p=0.008$）缩小为
-$d=-1.06$（$p=0.074$）。\textbf{本报告以修正后的数字为准。}
+分析过程中发现并修正了两处口径问题，记录于此以便核查。
 
-\subsection{元音空间面积}
+\textbf{其一，归一化顺序。}初版把 Lobanov 作用在 Hz 上，却用未归一化的 Bark 值计算面积与
+距离，结论受性别差异污染。修正后元音空间面积的方向发生反转（由"学习者更大"变为
+"学习者更小"）。
 
-\begin{table}[htbp]
+\textbf{其二，时长的重音口径。}共振峰分析只用了重读元音，而时长统计最初包含了非重读元音，
+两者口径不一致。按重读元音重算后，时长效应由 $d=-2.94$（$p=0.008$）缩小为
+$d=-1.06$（$p=0.074$）。\textbf{本报告全部采用修正后的数字。}
+
+\section{元音空间面积}
+
+\begin{table}[H]
 \centering
 \caption{元音空间面积（归一化 Bark$^2$）}
 \label{tab:vsa}
@@ -315,20 +374,20 @@ $d=-1.06$（$p=0.074$）。\textbf{本报告以修正后的数字为准。}
 \end{tabular}
 \end{table}
 
-方向与"元音空间收缩"假设一致，效应量中等偏大，但未达 0.05 显著性水平
-（\figref{fig:vsa-perm} 为精确置换检验的零分布）。
+方向与"元音空间收缩"假设一致，效应量中等偏大，但未达 0.05 显著性水平。
+图 \ref{fig:perm} 为精确置换检验的零分布。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.62\textwidth]{fig4_permutation.png}
 \caption{元音空间面积的精确置换检验。对 12 位说话人的分组标签做全部
-$\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧精确 $p=0.095$。}
-\label{fig:vsa-perm}
+$\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值（$-0.90$），双侧精确 $p=0.095$。}
+\label{fig:perm}
 \end{figure}
 
-\subsection{元音对距离}
+\section{元音对距离}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{关键元音对的声学距离（归一化 Bark）}
 \label{tab:pair}
@@ -346,8 +405,9 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 
 整体指标不显著、局部指标效应极大——这一对比本身即是结论：
 \textbf{用元音空间面积做二语语音研究，会漏掉真实效应。}
+图 \ref{fig:pair} 为各组的个体分布，图 \ref{fig:space} 为两组元音空间的叠加。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{fig2_pair_distances.png}
 \caption{关键元音对的声学距离。每点一位说话人，横线为组均值，误差线为 95\% 置信区间，
@@ -355,7 +415,7 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \label{fig:pair}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.60\textwidth]{fig1_vowel_space.png}
 \caption{两组元音空间叠加（归一化 Bark）。圆点为英语母语者（$n=7$），三角为普通话学习者
@@ -363,11 +423,11 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \label{fig:space}
 \end{figure}
 
-\subsection{跨母语比较}
+\section{跨母语比较}
 
-这是本研究的核心结果。七组说话者的 \ipa{ɪ}–\ipa{iː} 距离如下：
+这是本研究的核心结果。七组说话者的 \ipa{ɪ}–\ipa{iː} 距离见表 \ref{tab:l1} 与图 \ref{fig:l1}。
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{不同母语背景的 \ipa{ɪ}–\ipa{iː} 距离}
 \label{tab:l1}
@@ -386,10 +446,10 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{组间检验}
-\label{tab:l1-test}
+\label{tab:l1test}
 \begin{tabular}{llc}
 \toprule
 比较 & 统计量 & 结果 \\
@@ -403,7 +463,7 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \end{tabular}
 \end{table}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.88\textwidth]{fig8_l1_comparison.png}
 \caption{不同母语背景的 \ipa{ɪ}–\ipa{iː} 距离。每点一位说话人，横线为组均值，
@@ -416,9 +476,9 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 各组之间确有显著差异（$p=0.026$），说明母语背景具有调节作用，但"普通话缺少松紧对立"
 这一条无法解释整体格局。
 
-\subsection{时长与语速}
+\section{时长与语速}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{时长与语速}
 \label{tab:dur}
@@ -432,11 +492,11 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \end{tabular}
 \end{table}
 
-时长方面学习者确实拉得不够长，但未达显著，作为\textbf{趋势}报告。
-按母语背景看，印地语（1.33）与阿拉伯语（1.31）几乎保持了母语者的时长对比，
-而普通话（1.13）、韩语（1.16）、西班牙语（1.03）没有。
+时长方面学习者确实拉得不够长，但未达显著，作为\textbf{趋势}报告。按母语背景看，
+印地语（1.33）与阿拉伯语（1.31）几乎保持了母语者的时长对比，而普通话（1.13）、
+韩语（1.16）、西班牙语（1.03）没有。语速方面学习者显著更慢（$p=0.005$）。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
   \centering
@@ -452,29 +512,29 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \end{minipage}
 \end{figure}
 
-\subsection{混合效应模型}
+\section{混合效应模型}
 
 模型 $F_1 \sim \text{group}\times\text{vowel} + \text{gender} + (1\mid\text{speaker})$
-（普通话 vs 母语者，16{,}586 个 token）。组别主效应不显著，但多个元音的组×元音交互项显著，
-说明差异是局部的（\figref{fig:forest}）。
+（普通话 vs 母语者，16{,}586 个 token）。组别主效应不显著，但多个元音的组$\times$元音
+交互项显著，说明差异是局部的（图 \ref{fig:forest}）。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.62\textwidth]{fig3_forest.png}
-\caption{混合效应模型的组别×元音交互项。点为母语者相对学习者的 F1 差值，
+\caption{混合效应模型的组别$\times$元音交互项。点为母语者相对学习者的 F1 差值，
 误差线为 95\% 置信区间。}
 \label{fig:forest}
 \end{figure}
 
-\subsection{可懂度验证}
+\section{可懂度验证}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{ASR 词错率与元音偏离度的关系}
 \label{tab:wer}
 \begin{tabular}{lccc}
 \toprule
-组别 & $n$ & 平均 WER & 与元音偏离的 Spearman $\rho$ \\
+组别 & $n$ & 平均 WER & Spearman $\rho$ \\
 \midrule
 中国学习者 & 5 & 24.0\% & \multirow{2}{*}{0.937（全体 12 人，$p<0.001$）} \\
 英语母语者 & 7 & 7.7\% & \\
@@ -484,10 +544,10 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \end{tabular}
 \end{table}
 
-组内同样是完美秩相关，说明这不是"两组不同"造成的假象：即使母语者内部，
+组内同样是完美秩相关（$\rho=1.000$），说明这不是"两组不同"造成的假象：即使母语者内部，
 元音越偏离标准分布的人被 ASR 听错的也越多。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.60\textwidth]{fig5_wer.png}
 \caption{元音偏离度与 ASR 词错率。横轴为说话人各元音到母语者参照分布的平均马氏距离，
@@ -495,27 +555,29 @@ $\binom{12}{5}=792$ 种重排得到零分布，红竖线为观测差值，双侧
 \label{fig:wer}
 \end{figure}
 
-\subsection{小样本鲁棒性}
+\section{稳健性检验}
 
-标准 Lobanov 依赖说话人自身的均值与方差，短录音时估计噪声大。实测中同一位说话人
-12 句给出 \ipa{iː}:\ipa{ɪ} 时长比 1.60，250 句给出 1.14，结论相反。
+\textbf{小样本下的归一化稳定性。}标准 Lobanov 依赖说话人自身的均值与方差，短录音时估计
+噪声大。实测中同一位说话人 12 句给出 \ipa{iː}:\ipa{ɪ} 时长比 1.60，250 句给出 1.14，
+结论相反。
 
-为此实现了收缩归一化（经验贝叶斯）：
+为此实现了向同性别母语者总体收缩的经验贝叶斯归一化：
 
 \begin{equation}
 \hat{\mu} = \frac{n\mu_s + k\mu_{\text{pop}}}{n+k}, \qquad
 \hat{\sigma} = \frac{n\sigma_s + k\sigma_{\text{pop}}}{n+k}
 \end{equation}
 
-以 \ipa{ɪ}–\ipa{iː} 距离的稳定性为指标（重复抽样 40 次，与全样本结果比较）：
+以 \ipa{ɪ}–\ipa{iː} 距离的稳定性为指标（重复抽样 40 次，与全样本结果比较），
+结果见表 \ref{tab:shrink}。
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\caption{小样本下两种归一化的稳定性}
+\caption{小样本下两种归一化的稳定性（平均绝对偏差）}
 \label{tab:shrink}
 \begin{tabular}{cccc}
 \toprule
-token 数 & 标准 Lobanov 偏差 & 收缩法偏差 & 改进 \\
+token 数 & 标准 Lobanov & 收缩法 & 改进 \\
 \midrule
 10 & 0.409 & 0.380 & 7.1\% \\
 20 & 0.324 & 0.311 & 3.9\% \\
@@ -525,72 +587,98 @@ token 数 & 标准 Lobanov 偏差 & 收缩法偏差 & 改进 \\
 \end{tabular}
 \end{table}
 
-\textbf{改进有限（4--7\%）。} 原因推测：先验取自母语者，而学习者系统性地偏离母语者分布，
+改进有限（4\%--7\%）。原因推测：先验取自母语者，而学习者系统性地偏离母语者分布，
 收缩会同时把偏差拉进来。这是一个诚实的负结果，本研究不宣称"解决了小样本问题"。
 
-\subsection{负结果：擦音频谱矩}
+\textbf{擦音频谱矩的负结果。}\ipa{θ}/\ipa{ð} 的频谱矩曾实现并分析，三条独立检验均未通过：
+组间差异 $p=0.25$；ASR 在含 th 词上的错误率与非 th 词无差异；频谱重心与 th 词错误率无关
+（$\rho=-0.04$）；且同一说话人 \ipa{θ} 与 \ipa{f} 的重心关系都不稳定。故未纳入诊断工具。
+这说明：不是所有可测的量都值得做成诊断指标，必须有独立的效度证据。
 
-\ipa{θ}/\ipa{ð} 的频谱矩曾实现并分析，三条独立检验均未通过：组间差异 $p=0.25$；
-ASR 在含 th 词上的错误率与非 th 词无差异；频谱重心与 th 词错误率无关（$\rho=-0.04$）；
-且同一说话人 \ipa{θ} 与 \ipa{f} 的重心关系都不稳定。
+\section{本章小结}
 
-故未纳入诊断工具，也未纳入图集。这一负结果说明：不是所有可测的量都值得做成诊断指标，
-必须有独立的效度证据。
+\begin{enumerate}[leftmargin=2em,itemsep=2pt]
+  \item 整体指标（元音空间面积）差异仅为趋势（$p=0.095$），局部指标效应极大
+        （\ipa{ɑː}–\ipa{ʌ}，$d=-3.83$）。
+  \item 跨六种母语背景比较表明，范畴合并并非普通话特有（$p=0.73$）。
+  \item 诊断评分与 ASR 可懂度高度一致（$\rho=0.937$；组内 $\rho=1.000$）。
+  \item 学习者的语速显著偏慢（$d=-2.51$），时长对比呈同方向趋势（$p=0.074$）。
+\end{enumerate}
 
 % =====================================================================
-\section{诊断工具的实现}
+\chapter{系统实现}\label{ch:system}
 
-\subsection{系统结构}
+\section{系统架构}
 
-\begin{table}[htbp]
+诊断工具由四层构成：
+
+\begin{table}[H]
 \centering
-\caption{工具的处理流程}
-\label{tab:pipeline}
-\begin{tabular}{ll}
+\caption{系统分层}
+\label{tab:arch}
+\begin{tabular}{lll}
 \toprule
-步骤 & 说明 \\
+层 & 功能 & 实现 \\
 \midrule
-1. 音素级对齐 & MFA \texttt{align\_one}，单文件约 20--80 秒 \\
-2. 共振峰提取 & 元音中段 50\% 窗口，LPC 每 5 ms 估计，取中位数 \\
-3. 归一化 & 说话人内 Lobanov（Bark 标度） \\
-4. 评分 & 与母语者参照分布比较的马氏距离，$\chi^2(2)$ 转百分位 \\
-5. 输出 & 逐元音得分、问题元音排序、教学建议 \\
+数据层 & 母语者参照分布 & \texttt{vowel\_reference.json}（每元音的 $\mu$ 与 $\Sigma$） \\
+处理层 & 对齐、共振峰提取、归一化 & MFA + parselmouth + numpy \\
+评分层 & 马氏距离与 $\chi^2$ 校准 & \texttt{reference.py}、\texttt{diagnose.py} \\
+展示层 & 命令行与网页 & CLI + Streamlit \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{评分方法}
+\section{功能}
 
-对每个元音 $v$，以 7 位母语者中位数点的均值 $\mu_v$ 与协方差 $\Sigma_v$ 构成参照分布。
-评分定义为
+\textbf{输入}：一段朗读录音（wav）与对应原文。
 
-\begin{equation}
-d_v = \sqrt{(x_v - \mu_v)^{\top}\Sigma_v^{-1}(x_v-\mu_v)},\qquad
-s_v = 100\bigl(1 - F_{\chi^2_2}(d_v^2)\bigr)
-\end{equation}
+\textbf{输出}：
 
-$s_v$ 可解释为"该发音比多少比例的母语者更偏离中心"。公式固定，未做人工调参。
+\begin{enumerate}[leftmargin=2em,itemsep=2pt]
+  \item 总分（0--100）与逐元音得分；
+  \item 问题元音排序（按偏离程度）及针对性建议；
+  \item 松紧时长诊断（\ipa{iː}:\ipa{ɪ} 与母语者 1.27 的比较）；
+  \item 元音空间可视化（用户点叠在母语者参照椭圆上）。
+\end{enumerate}
 
-\subsection{使用方式}
+评分的统计含义明确：$s_v = 100\,(1-F_{\chi^2_2}(d_v^2))$，
+可解释为"该发音比多少比例的母语者更偏离中心"。公式固定，未做人工调参。
 
-命令行：
+\section{界面与运行}
 
-\begin{verbatim}
+网页界面如图 \ref{fig:app} 所示。左侧为使用说明与参照信息，主区为上传、原文输入与诊断入口。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{app_screenshot.png}
+\caption{诊断工具网页界面（Streamlit）。}
+\label{fig:app}
+\end{figure}
+
+命令行调用：
+
+\begin{lstlisting}[language=bash]
 python3 src/diagnose.py --wav my.wav --text "the text you read"
-\end{verbatim}
+\end{lstlisting}
 
-网页界面：\texttt{streamlit run src/app.py}。
+网页调用：
 
-单次录音建议朗读 30 句以上，否则时长比的估计不稳定（见第 5.8 节）。
+\begin{lstlisting}[language=bash]
+streamlit run src/app.py
+\end{lstlisting}
+
+单次录音建议朗读 30 句以上，否则时长比的估计不稳定（见第 \ref{ch:result} 章稳健性检验）。
 
 % =====================================================================
-\section{讨论}
+\chapter{讨论}\label{ch:discuss}
+
+\section{主要发现}
 
 \subsection{为什么整体指标会失效}
 
-元音空间面积把所有元音压缩成一个数。若错误是局部的（少数元音偏移），
-面积的平均化会把信号稀释；同时面积对个体差异极为敏感，母语者组内即在 3.45--6.16 之间
-波动，远超组间差异。这解释了为什么面积检验只有 $p=0.095$，而元音对距离可达 $d=-3.83$。
+元音空间面积把所有元音压缩成一个数。若错误是局部的（少数元音偏移），面积的平均化会把
+信号稀释；同时面积对个体差异极为敏感，母语者组内即在 3.45--6.16 之间波动，远超组间差异。
+这解释了为什么面积检验只有 $p=0.095$，而元音对距离可达 $d=-3.83$。
 
 对方法学的启示：二语语音研究若只报告 VSA，可能系统性地低估二语者的困难。
 
@@ -600,41 +688,50 @@ python3 src/diagnose.py --wav my.wav --text "the text you read"
 合并为一个范畴"。若该假设成立，合并应主要集中在普通话组。
 
 数据不支持这一预测：六种母语背景全部出现合并，西班牙语与越南语更强，普通话与其余二语组
-无差异（$p=0.73$）。这说明该困难更可能源于二语感知与产出的普遍机制
-（如范畴边界重建的困难、输入中对立线索的统计分布），而非单一母语的音位库存。
+无差异（$p=0.73$）。这说明该困难更可能源于二语感知与产出的普遍机制（如范畴边界重建的
+困难、输入中对立线索的统计分布），而非单一母语的音位库存。
 
-需要说明的是，这并非否定母语迁移的存在：组间差异仍然显著（$p=0.026$），
-说明母语背景有调节作用，只是它不是主导因素。
+需要说明的是，这并非否定母语迁移的存在：组间差异仍然显著（$p=0.026$），说明母语背景有
+调节作用，只是它不是主导因素。
 
-\subsection{教学含义}
+\section{创新点}
 
 \begin{enumerate}[leftmargin=2em,itemsep=2pt]
-  \item 训练应优先针对\textbf{具体元音对}，而非笼统地"改善发音"。本研究中
-        \ipa{ɑː}–\ipa{ʌ} 与 \ipa{ɪ}–\ipa{iː} 的问题最严重。
-  \item 时长线索不可忽略，但其效应弱于频谱线索（$d=-1.06$ vs $-3.83$），
-        训练应以音质为主、时长为辅。
-  \item 诊断应个体化：本研究中母语者内部也存在明显差异（\figref{fig:wer} 中的离群点），
-        以"母语者平均"为唯一标准会掩盖个体特征。
+  \item \textbf{用统一对照设计在六种母语背景上检验了一个流行解释，并否定了它。}
+        多数二语语音研究只做一个母语背景，难以区分"语言普遍困难"与"母语特有迁移"。
+  \item \textbf{把"诊断评分"与"可懂度"做了逐人对照。}多数工具只做内部一致性检验，
+        不回答"这个分数是否真的对应别人能不能听懂"。
+  \item \textbf{证明了整体指标与局部指标的分歧。}这一方法学发现可直接指导后续研究
+        选择指标。
 \end{enumerate}
 
-% =====================================================================
 \section{局限}
 
 \begin{enumerate}[leftmargin=2em,itemsep=2pt]
   \item 每个二语组仅 3--5 位说话人，组间比较的统计功效有限；组均值受个体影响较大。
   \item 语料为朗读材料，与自然口语存在差异，结论向自发语音的推广需谨慎。
-  \item 单次短录音的归一化估计不稳定，收缩方法仅部分缓解。
-  \item 仅覆盖元音与韵律，未涉及辅音与语调。
+  \item 单次短录音的归一化估计不稳定，收缩方法仅部分缓解（4\%--7\%）。
+  \item 仅覆盖元音与韵律，未涉及辅音与语调（擦音模块经验证不可靠，已弃用）。
   \item 未开展教学干预实验，因此只能论证"诊断有效"，不能论证"使用本工具能提高发音"。
 \end{enumerate}
 
+\section{与现有工作的关系}
+
+与 \textit{JASA} 2024 的研究相比，本研究的结论方向一致（学习者的松紧元音存在系统性差异），
+但把样本扩展到六种母语背景，并将"母语特有"这一解释置于可检验的位置，最终予以否定。
+与 \textit{Visible Vowels} 等可视化工具相比，本研究进一步给出个体化评分与效度证据。
+与 ICPhS 2023 采用马氏距离的工作相比，本研究增加了群体参照与可懂度验证。
+
+需要明确的是：\textbf{本研究并未提出新的声学算法}，其贡献在于研究设计、效度验证与
+方法学结论。
+
 % =====================================================================
+\chapter{结论与展望}\label{ch:concl}
+
 \section{结论}
 
 本研究以 31 位说话者、7{,}750 条录音、78{,}293 个元音样本，在统一对照设计下比较了六种
 母语背景的二语学习者与英语母语者的元音声学特征，并据此构建了可解释的发音诊断方法。
-
-主要结论如下：
 
 \begin{enumerate}[leftmargin=2em,itemsep=2pt]
   \item 二语者的元音问题不是整体空间收缩，而是\textbf{特定音位范畴的合并}
@@ -646,53 +743,146 @@ python3 src/diagnose.py --wav my.wav --text "the text you read"
   \item 整体性指标（元音空间面积）会掩盖上述效应，方法上应优先使用元音对距离。
 \end{enumerate}
 
-% =====================================================================
-\begin{thebibliography}{99}
-\bibitem{jasa2024} Acoustic analysis of English tense and lax vowels: Comparing the
-production between Mandarin Chinese learners and native English speakers.
-\textit{The Journal of the Acoustical Society of America}, 155(5), 2024.
+\section{展望}
 
-\bibitem{bradlow1996} Bradlow, A. R., Torretta, G. M., \& Pisoni, D. B.
-Intelligibility of normal speech I: Global and fine-grained acoustic-phonetic talker
-characteristics. \textit{Speech Communication}, 20, 255--272, 1996.
-
-\bibitem{recall} Assessment of L2 intelligibility: Comparing L1 listeners and automatic
-speech recognition. \textit{ReCALL}.
-
-\bibitem{visiblevowels} Heeringa, W. J., \& Van de Velde, H. Visible Vowels: a Tool for
-the Visualization of Vowel Variation. CLARIN Annual Conference, 2018.
-
-\bibitem{vowspace} An Automatic Vowel Space Generator for Language Learners.
-\textit{Proceedings of ALTA}, 2020.
-
-\bibitem{icphs2023} Knowledge-driven vs. data-driven methods for L2 vowel assessment.
-\textit{Proceedings of ICPhS}, 2023.
-
-\bibitem{l2arctic} Zhao, G., Sonsaat, S., Silpachai, A., Lucic, I., Chukharev-Hudilainen, E.,
-Levis, J., \& Gutierrez-Osuna, R. L2-ARCTIC: A Non-native English Speech Corpus.
-\textit{Interspeech}, 2018.
-
-\bibitem{cmuarctic} Kominek, J., \& Black, A. W. CMU ARCTIC databases for speech synthesis.
-Technical Report CMU-LTI-03-177, 2003.
-
-\bibitem{wav2vec2} Baevski, A., Zhou, Y., Mohamed, A., \& Auli, M. wav2vec 2.0: A framework
-for self-supervised learning of speech representations. \textit{NeurIPS}, 2020.
-\end{thebibliography}
+后续工作可从三方面推进：其一，扩大每位说话人的样本量并引入自然口语语料，
+检验结论在自发语音中的可迁移性；其二，把分析扩展到辅音与韵律，构建完整的音段诊断；
+其三，开展小规模教学干预实验，检验"使用诊断工具是否能改善发音"，这是本研究目前
+无法回答的问题。
 
 % =====================================================================
-\appendix
+\chapter{复现命令与文件结构}\label{ch:repro}
 
-\section{完整结果表}
+\section{复现命令}
 
-详见 \texttt{results/} 目录，其中：
+\begin{lstlisting}[language=bash]
+# 1. 抓取官方 L2-ARCTIC（逐位下载 -> 提取 250 句 -> 删包）
+python3 src/fetch_full.py
 
-\begin{itemize}[leftmargin=2em,itemsep=1pt]
-  \item \texttt{multi\_speaker\_level.csv}：每位说话人的元音对距离与元音空间面积
-  \item \texttt{multi\_group\_summary.csv}：各母语组汇总
-  \item \texttt{pair\_summary.csv}：元音对距离的组间比较
-  \item \texttt{mixed\_coefs.csv}：混合效应模型完整系数
-  \item \texttt{asr\_wer\_by\_speaker.csv}：每位说话人的词错率
-  \item \texttt{shrinkage\_stability.csv}：收缩归一化的稳定性数据
-\end{itemize}
+# 2. 提取全量测量（共振峰 / 时长 / 韵律）
+python3 src/extract_all.py
+
+# 3. 跨母语分析
+python3 src/analyze_multi.py
+
+# 4. 普通话 vs 母语者的各项统计
+python3 src/rebuild_stats.py
+
+# 5. 可懂度（ASR 词错率）
+python3 src/intelligibility.py --per-speaker 40
+
+# 6. 出图（中英两套）
+python3 src/figs_pub.py
+
+# 7. 诊断工具
+python3 src/diagnose.py --wav my.wav --text "the text you read"
+\end{lstlisting}
+
+全部随机过程（重抽样、置换）固定种子；置换检验采用精确枚举，结果不依赖随机数。
+
+\section{文件结构}
+
+\begin{lstlisting}[language=bash]
+VowelSpace/
+|--- src/
+|    |--- fetch_full.py        官方语料抓取
+|    |--- extract_all.py       共振峰 / 时长 / 韵律提取
+|    |--- analyze_multi.py     跨母语分析
+|    |--- rebuild_stats.py     组间统计
+|    |--- shrinkage.py         小样本收缩归一化
+|    |--- diagnose.py          单段录音诊断
+|    |--- intelligibility.py   ASR 词错率
+|    |--- figs_pub.py          发表级图（中英两套）
+|    |--- figstyle.py          样式（Times New Roman + 宋体）
+|--- figs/{en,zh}/             8 张图 x 3 格式
+|--- results/                 结果表
+|--- report/                  本报告
+|--- models/                  参照分布与时长参照
+--- run_all.sh                一键复现
+\end{lstlisting}
+
+% =====================================================================
+\chapter{关键代码片段}\label{ch:code}
+
+\section{共振峰提取}
+
+对每个元音段取中间 50\% 窗口，逐帧估计并取中位数；超出合理范围的读数直接剔除。
+
+\begin{lstlisting}[language=Python]
+def measure_formants(snd, t0, t1, max_formant=5500.0,
+                     f1_range=(200, 1200), f2_range=(500, 3500)):
+    dur = t1 - t0
+    if dur < 0.03:
+        return float("nan"), float("nan"), 0
+    formant = snd.to_formant_burg(time_step=0.005, max_number_of_formants=5,
+                                  maximum_formant=max_formant,
+                                  window_length=0.025)
+    f1s, f2s = [], []
+    for t in np.arange(t0, t1, 0.005):
+        f1 = call(formant, "Get value at time", 1, float(t), "Hertz", "linear")
+        f2 = call(formant, "Get value at time", 2, float(t), "Hertz", "linear")
+        if f1 is None or f2 is None or np.isnan(f1) or np.isnan(f2):
+            continue
+        if not (f1_range[0] <= f1 <= f1_range[1]):
+            continue
+        if not (f2_range[0] <= f2 <= f2_range[1]) or f2 <= f1:
+            continue
+        f1s.append(f1); f2s.append(f2)
+    if len(f1s) < 2:                      # 少于 2 帧视为失败
+        return float("nan"), float("nan"), 0
+    return float(np.median(f1s)), float(np.median(f2s)), len(f1s)
+\end{lstlisting}
+
+\section{评分函数}
+
+以母语者参照分布计算马氏距离，再用 $\chi^2$ 分布转换为百分位。
+
+\begin{lstlisting}[language=Python]
+def score_point(x, ref_v):
+    mu = np.array(ref_v["mu"])
+    cov = np.array(ref_v["cov"])
+    diff = np.asarray(x, float) - mu
+    d = float(np.sqrt(diff @ np.linalg.inv(cov) @ diff))
+    p = 1 - chi2.cdf(d ** 2, df=2)
+    return d, float(p) * 100          # 距离, 得分(0-100)
+
+def score_speaker(med, ref):
+    rows = []
+    for v in VOWELS:
+        if v not in ref["vowels"] or v not in med.index:
+            continue
+        x = med.loc[v, [F1, F2]].values
+        d, s = score_point(x, ref["vowels"][v])
+        rows.append({"vowel": v, "distance": d, "score": s})
+    df = pd.DataFrame(rows).sort_values("distance", ascending=False)
+    return df, float(df["score"].mean())
+\end{lstlisting}
+
+\section{收缩归一化}
+
+把说话人的均值与标准差向同性别母语者总体收缩，缓解短录音的估计噪声。
+
+\begin{lstlisting}[language=Python]
+def shrink_normalize(df, prior, k=50.0, speaker="speaker",
+                     gender_col="gender", suffix="_s"):
+    out = df.copy()
+    n_by_spk = out.groupby(speaker).size()
+    g_by_spk = out.groupby(speaker)[gender_col].first()
+    for f in FORMS:                       # FORMS = ["F1_bark", "F2_bark"]
+        mu_s = out.groupby(speaker)[f].transform("mean")
+        sd_s = out.groupby(speaker)[f].transform("std")
+        n = out[speaker].map(n_by_spk).astype(float)
+        mu_pop = out[speaker].map({s: _prior_for(prior, g)["mu"][f]
+                                   for s, g in g_by_spk.items()})
+        sd_pop = out[speaker].map({s: _prior_for(prior, g)["sd"][f]
+                                   for s, g in g_by_spk.items()})
+        mu_hat = (n * mu_s + k * mu_pop) / (n + k)
+        sd_hat = (n * sd_s + k * sd_pop) / (n + k)
+        out[f + suffix] = (out[f] - mu_hat) / sd_hat.replace(0, np.nan)
+    return out
+\end{lstlisting}
+
+% =====================================================================
+\printbibliography[heading=bibintoc,title={参考文献}]
 
 \end{document}
