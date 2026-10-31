@@ -75,8 +75,12 @@ L2-ARCTIC v5.0（自带音素级 TextGrid 标注）。
 ## 发音诊断工具
 
 ```bash
-python3 src/diagnose.py --wav my.wav --text "the text you read"
+python3 src/diagnose.py --audio my.m4a --text "the text you read"
 ```
+
+**支持的格式**：wav / mp3 / m4a / aac / flac / ogg / wma / amr 等。
+解析顺序为 soundfile 优先、ffmpeg 兜底；m4a 需要 ffmpeg（本项目装在 conda 环境 `audio` 中，
+`src/audio_io.py` 会自动定位）。
 
 输出每个元音相对母语者参照分布的偏离度（马氏距离 + χ² 百分位）、
 松紧时长检查与教学建议。网页版：`streamlit run src/app.py`。

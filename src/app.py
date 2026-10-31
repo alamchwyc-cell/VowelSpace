@@ -79,8 +79,8 @@ def plot_diagnosis(points: dict, problems=None, key="v1"):
 with st.sidebar:
     st.header("怎么用")
     st.markdown(
-        "1. 朗读一段英文（20–60 秒）\n"
-        "2. 上传 wav 文件\n"
+        "1. 朗读一段英文（至少 30 句）\n"
+        "2. 上传录音（wav / mp3 / m4a 均可）\n"
         "3. 粘贴你读的原文\n"
         "4. 点「开始诊断」\n\n"
         "录音要求：安静环境、正常语速、不要刻意放慢。"
@@ -90,14 +90,15 @@ with st.sidebar:
 
 col1, col2 = st.columns([1, 1])
 with col1:
-    up = st.file_uploader("上传录音（wav）", type=["wav"])
+    up = st.file_uploader("上传录音", type=["wav", "mp3", "m4a", "aac", "flac", "ogg", "opa", "opus", "wma", "amr"])
 with col2:
     st.text_area("朗读示例文本（可选）", SAMPLE_TEXT, height=100, disabled=True)
 
 text = st.text_area("你朗读的原文", height=140, placeholder="把录音对应的英文原文粘贴到这里……")
 
 if st.button("开始诊断", type="primary", disabled=(up is None or not text.strip())):
-    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
+    suffix = Path(up.name).suffix or ".wav"
+    with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as f:
         f.write(up.getbuffer())
         wav_path = f.name
 

@@ -81,13 +81,21 @@ ADVICE = {
 
 
 def diagnose(wav_path, text: str, ref_path: Path = REF) -> dict:
-    wav = Path(wav_path)
+    from audio_io import ensure_wav16k
+
     ref = json.loads(Path(ref_path).read_text(encoding="utf-8"))
 
-    with tempfile.TemporaryDirectory() as td:
-        tg = Path(td) / "out.TextGrid"
-        align_one(wav, text, tg)
-        toks = extract(wav, tg)
+    # 任意常见格式(m4a/mp3/...)统一转成 16 kHz 单声道 wav, 再交给 Praat/MFA
+    wav, tmp_dir = ensure_wav16k(wav_path)
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            tg = Path(td) / "out.TextGrid"
+            align_one(wav, text, tg)
+            toks = extract(wav, tg)
+    finally:
+        if tmp_dir is not None:
+            import shutil
+            shutil.rmtree(tmp_dir, ignore_errors=True)
 
     if len(toks) < MIN_TOKENS:
         return {"ok": False,
@@ -165,7 +173,8 @@ def render(res: dict) -> str:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--wav", required=True)
+    ap.add_argument("--wav", "--audio", dest="wav", required=True,
+                    help="录音文件，支持 wav / mp3 / m4a / flac / ogg 等")
     ap.add_argument("--text")
     ap.add_argument("--text-file")
     a = ap.parse_args()
