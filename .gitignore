@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+data/
+models/
+logs/
+vendor/
+*.TextGrid
+.hf_cache/
